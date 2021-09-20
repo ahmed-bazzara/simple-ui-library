@@ -9,7 +9,7 @@
       "esnext"
     ],
     "outDir": "lib",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "declaration": true,
     "declarationDir": "lib",
     "allowJs": true,
@@ -36,11 +36,26 @@
     "alwaysStrict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "paths": {
+      "*": [
+        "src/*"
+      ]
+    },
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths"
+      },
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ]
   },
   "include": [
     "src",
     "./global.d.ts",
+    "./src/modules.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./src/**/*.stories.ts",

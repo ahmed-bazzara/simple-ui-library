@@ -77,7 +77,8 @@
     "prettier": "2.4.1",
     "storybook-readme": "^5.0.9",
     "svg-inline-loader": "^0.8.2",
-    "ts-loader": "^9.2.5"
+    "ts-loader": "^9.2.5",
+    "typescript-transform-paths": "^3.3.1"
   },
   "browserslist": {
     "production": [
