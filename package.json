@@ -1,7 +1,8 @@
 {
   "name": "simple-ui-library",
   "version": "0.1.7",
-  "types": "./npm_index.d.ts",
+  "types": "lib/npm_index.d.ts",
+  "main": "lib/npm_index.js",
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@emotion/react": "^11.4.1",
@@ -25,7 +26,6 @@
     "type": "git",
     "url": "https://github.com/ahmed-bazzara/simple-ui-library.git"
   },
-  "main": "lib/src/npm_index.js",
   "private": false,
   "directories": {
     "lib": "lib"
