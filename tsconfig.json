@@ -3,12 +3,10 @@
     "target": "es5",
     "lib": [
       "dom",
-      "dom.iterable",
       "es2015",
-      "es2016",
-      "es2017",
       "esnext"
     ],
+    "outDir": "lib",
     "baseUrl": "src",
     "declaration": true,
     "allowJs": true,
@@ -24,7 +22,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "downlevelIteration": true,
-    "outDir": "lib",
     "jsx": "react",
     "module": "commonjs",
     "declarationMap": true,
@@ -39,24 +36,24 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true
   },
+  "include": [
+    "src",
+    "./global.d.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./src/**/*.js",
+    ".storybook",
+    "__test__"
+  ],
   // "include": [
   //   "src",
-  //   "./global.d.ts",
-  //   "./src/**/*.ts",
-  //   "./src/**/*.tsx",
-  //   "./src/**/*.js",
-  //   ".storybook",
-  //   "__test__"
+  //   "**/*.stories.tsx",
   // ],
-  "include": [
-    "src"
-  ],
   "exclude": [
     "node_modules",
     "**/*.test.ts",
     "**/*.test.tsx",
-    "**/*.stories.tsx",
-    "./src/setupTests.ts"
+    "./setupTests.ts"
   ],
   "files": [
     "./src/npm_index.ts"

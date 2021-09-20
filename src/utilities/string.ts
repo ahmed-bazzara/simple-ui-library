@@ -6,11 +6,9 @@ export function sortAlphabetically(
   const localeString = locale.replace('_', '-');
   const collator = new Intl.Collator(localeString);
 
-  const result = array
-    .slice(0)
-    .sort((a: string, b: string): number =>
-      isDescending ? collator.compare(b, a) : collator.compare(a, b),
-    );
+  const result = [...array].sort((a: string, b: string): number =>
+    isDescending ? collator.compare(b, a) : collator.compare(a, b),
+  );
 
   return result;
 }
@@ -39,14 +37,16 @@ export function leftPad(
   padLength = 2,
   padString = '0',
 ): string {
-  const padding = Array(padLength + 1).join(padString);
+  const padding = new Array(padLength + 1).join(padString);
   const stringValue = String(value);
 
-  return padding.substring(0, padLength - stringValue.length) + stringValue;
+  return (
+    padding.slice(0, Math.max(0, padLength - stringValue.length)) + stringValue
+  );
 }
 
 export function getUpperCaseFirstLetterString(value: string): string {
-  if (value.length) {
+  if (value.length > 0) {
     const splittedStringArray = value.split(' ');
     const upperCaseArray = splittedStringArray.map((entry) => {
       const firstLetterUpperCase = entry[0].toUpperCase();
@@ -79,14 +79,14 @@ export function toBaseCharactersForLocale(str: string, locale: string): string {
 
     const normalizedLetter = letter
       .normalize('NFD')
-      .replace(/[\u0300-\u036f]/gi, '');
+      .replace(/[\u0300-\u036F]/gi, '');
     if (letterMatch(normalizedLetter)) {
       return normalizedLetter;
     }
     return letter;
   };
 
-  return str.replace(/[^u0000-u007E]/g, match);
+  return str.replace(/[^0-u]/g, match);
 }
 
 interface Range {

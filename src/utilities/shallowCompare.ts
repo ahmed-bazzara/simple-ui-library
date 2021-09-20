@@ -13,9 +13,7 @@ export const shallowCompare = (
 
   if (aKeys.length !== bKeys.length) return false;
 
-  for (let i = 0; i < aKeys.length; i++) {
-    const key = aKeys[i];
-
+  for (const key of aKeys) {
     if (!hasOwnProperty.call(b, key) || !Object.is(a[key], b[key])) {
       return false;
     }

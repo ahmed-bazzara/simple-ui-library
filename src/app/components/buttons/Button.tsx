@@ -1,9 +1,7 @@
 import React from 'react';
 import { pointerHandlers } from 'utilities';
 import classnames from 'classnames';
-import {
-  Theme, AppearanceType, THEMES, APPEARANCES,
-} from 'app/constants';
+import { Theme, AppearanceType, THEMES, APPEARANCES } from 'app/constants';
 import './styles/button.scss';
 
 export interface ButtonProps {

@@ -10,12 +10,8 @@
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2018,
         "sourceType": "module",
-        "project": "tsconfig.json"
+        "project": "./tsconfig.json"
     },
     "plugins": [
         "react",
@@ -66,7 +62,6 @@
         "@typescript-eslint/no-use-before-define": "off",
         "react/camelcase": "off",
         "@typescript-eslint/camelcase": "off",
-        "@typescript-eslint/comma-dangle": "off",
         "no-alert": "off",
         "jsx-a11y/alt-text": "off",
         "react/require-default-props": "off",

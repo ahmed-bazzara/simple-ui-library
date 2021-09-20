@@ -14,7 +14,7 @@ export function isNumericValue(value?: unknown): boolean {
   }
 
   if (typeof value === 'string') {
-    return !isNaN(parseFloat(value)) && isFinite(Number(value));
+    return !isNaN(Number.parseFloat(value)) && isFinite(Number(value));
   }
 
   return false;
@@ -25,19 +25,17 @@ export function mergeValidationResults(
 ): ValidationResult {
   const validationResult = new ValidationResult();
 
-  validationResults.forEach((result) => {
+  for (const result of validationResults) {
     result.hasError() && validationResult.setError();
     result.hasWarning() && validationResult.setWarning();
-  });
+  }
 
-  validationResults.forEach((result) => {
-    result
-      .getErrorMessages()
-      .forEach((message) => validationResult.setError(message));
-    result
-      .getWarningMessages()
-      .forEach((message) => validationResult.setWarning(message));
-  });
+  for (const result of validationResults) {
+    for (const message of result.getErrorMessages())
+      validationResult.setError(message);
+    for (const message of result.getWarningMessages())
+      validationResult.setWarning(message);
+  }
 
   return validationResult;
 }

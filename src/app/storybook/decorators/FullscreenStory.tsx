@@ -8,7 +8,7 @@ const FullscreenStory = (Story: React.ComponentType): JSX.Element => (
         '#root': {
           height: '100%',
           width: '100%',
-        }
+        },
       }}
     />
     <Story />

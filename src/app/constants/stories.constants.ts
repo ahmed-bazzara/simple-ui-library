@@ -51,8 +51,7 @@ export const FIGMA_URLS = {
   versionNumber: DIAVERUM_FIGMA_COMPONENTS_URL,
   alert: DIAVERUM_FIGMA_COMPONENTS_URL,
   snackbar: DIAVERUM_FIGMA_COMPONENTS_URL,
-  list:
-    'https://www.figma.com/file/oz8lSyFNbFO08Hg0LxeUNP/Diaverum---Design-system?node-id=1042%3A543',
+  list: 'https://www.figma.com/file/oz8lSyFNbFO08Hg0LxeUNP/Diaverum---Design-system?node-id=1042%3A543',
   shape:
     'https://www.figma.com/file/5HAbjuvS2L1WDVzZ2Fc7Dx/Diaverum---New-clinical-platform?node-id=33%3A4210',
   panel:

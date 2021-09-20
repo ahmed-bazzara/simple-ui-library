@@ -40,7 +40,7 @@ const EventPortal: React.FC<EventPortalProps> = (props) => {
   const handlers = useMemo(
     () =>
       Object.entries(listeners)
-        .filter(([, listenersForEvent]) => listenersForEvent.length !== 0)
+        .filter(([, listenersForEvent]) => listenersForEvent.length > 0)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .reduce<Record<any, (event: any) => void>>(
         (handlers, [name, listenersForEvent]) => {

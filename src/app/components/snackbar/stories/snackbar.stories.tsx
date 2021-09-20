@@ -1,4 +1,3 @@
-import './styles/snackbar.scss';
 import React from 'react';
 import { Snackbar, SNACKBAR_TYPES } from 'app/components';
 import {
@@ -10,6 +9,7 @@ import {
 } from '@storybook/addon-knobs';
 import { FIGMA_URLS } from 'app/constants';
 import Presets from './snackbar.presets';
+import './styles/snackbar.scss';
 
 export default {
   title: 'Popups/Snackbar',

@@ -17,9 +17,8 @@ function useEventPortal<Name extends keyof ReactEventHandlers>(
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function useEventPortal(arg1: any, arg2?: any, arg3?: any): void {
-  const { addEventListener, removeEventListener } = useContext(
-    EventPortalContext,
-  );
+  const { addEventListener, removeEventListener } =
+    useContext(EventPortalContext);
 
   useEffect(() => {
     if (typeof arg1 === 'string') {
@@ -29,9 +28,8 @@ function useEventPortal(arg1: any, arg2?: any, arg3?: any): void {
         return (): void => removeEventListener(arg1, arg2);
       }
     } else if (arg2 ?? true) {
-      Object.entries<ReactEventHandler>(arg1).forEach(([name, handler]) =>
-        addEventListener(name, handler),
-      );
+      for (const [name, handler] of Object.entries<ReactEventHandler>(arg1))
+        addEventListener(name, handler);
 
       return (): void =>
         Object.entries<ReactEventHandler>(arg1).forEach(([name, handler]) =>

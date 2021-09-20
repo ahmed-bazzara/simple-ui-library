@@ -39,10 +39,7 @@ const Buttons = (): JSX.Element => {
   const getIconButtonPropsWithAppearance = (
     appearance: AppearanceType,
   ): ButtonProps[] =>
-    [
-      { appearance },
-      { appearance },
-    ].reduce(
+    [{ appearance }, { appearance }].reduce(
       (acc: ButtonProps[], buttonProps) => [
         ...acc,
         ...THEME_MODES.map((theme: Theme) => ({ ...buttonProps, theme })),
