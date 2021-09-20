@@ -1,0 +1,210 @@
+
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+caption,
+th,
+td {
+  text-align: inherit;
+}
+
+html,
+body,
+th,
+td {
+  padding: 0;
+}
+
+html,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+dl,
+dd,
+figure,
+blockquote,
+hr,
+input,
+button,
+select,
+textarea {
+  margin: 0;
+}
+
+tt,
+code,
+kbd,
+samp,
+pre {
+  font-family: code, monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th,
+em,
+cite,
+strong,
+small,
+input,
+button,
+select,
+text-area {
+  font-style: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+ol,
+ul {
+  /* list-style: none; */
+  padding-left: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+u,
+s,
+strike,
+del,
+ins {
+  text-decoration: inherit;
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  line-height: inherit;
+}
+
+[type="button"],
+[type="submit"],
+[type="reset"],
+button {
+  cursor: pointer;
+}
+
+#appId {
+  height: 100%;
+}
+
+html,
+body {
+  height: 100%;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+/* background-color breaks storybooks "backgrounds" addon */
+body:not(.sb-show-main) {
+  background-color: $grey-lighter;
+}
+
+/* stylelint-disable declaration-no-important  */
+.hidden {
+  display: none !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+/* stylelint-enable */
+
+.cmn-primary-background {
+  background-color: $primary-color;
+}
+
+.cmn-secondary-background {
+  background-color: $secondary-color;
+}
+
+.orange {
+  color: $warning;
+  fill: $warning;
+}
+
+.orange-backdrop {
+  background-color: $warning;
+}
+
+.green {
+  color: $primary-accent;
+  fill: $primary-accent;
+}
+
+.green-backdrop {
+  background-color: $primary-accent;
+}
+
+.blue {
+  color: $secondary-accent;
+  fill: $secondary-accent;
+}
+
+.blue-backdrop {
+  background-color: $secondary-accent;
+}
+
+.dark-blue {
+  color: $primary-color;
+  fill: $primary-color;
+}
+
+.dark-blue-backdrop {
+  background-color: $primary-color;
+}
+
+.red {
+  color: $danger;
+  fill: $danger;
+}
+
+.red-backdrop {
+  background-color: $danger;
+}
+
+.green-alternative {
+  color: $without-allergies;
+  fill: $without-allergies;
+}
+
+.green-alternative-backdrop {
+  background-color: $without-allergies;
+}
+
+a:focus {
+  outline: none;
+}
+
+.icon {
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}

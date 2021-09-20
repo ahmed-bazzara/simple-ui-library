@@ -1,0 +1,13 @@
+@mixin transition($property, $duration: 0.2s, $timing: $swift-out-transition) {
+  transition-duration: $duration;
+  transition-property: #{$property};
+  transition-timing-function: $timing;
+}
+
+@mixin pulse-failure($duration: 0.5s, $count: 1) {
+  animation: pulse-failure $duration $count;
+}
+
+@mixin pulse-success($duration: 0.5s, $count: 1) {
+  animation: pulse-success $duration $count;
+}

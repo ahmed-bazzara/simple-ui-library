@@ -1,0 +1,81 @@
+@mixin custom-table-style($table-rows: 5, $table-row-height: rem(104)) {
+  $table-cell-width: rem(155);
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  table {
+    border-spacing: 0;
+  }
+
+  thead {
+    display: block;
+
+    tr {
+      background-color: $grey-lighter;
+    }
+  }
+
+  tbody {
+    display: block;
+    height: $table-row-height * $table-rows;
+    overflow-y: auto;
+
+    tr {
+      height: $table-row-height;
+
+      &:nth-child(even) {
+        background-color: $white;
+      }
+
+      &:nth-child(odd) {
+        background-color: $grey-lighter;
+      }
+    }
+  }
+
+  td,
+  th {
+    padding: 0 rem(10) rem(9) rem(10);
+    font-size: rem(18);
+    font-weight: normal;
+    text-align: center;
+    color: $primary-color;
+  }
+
+  th {
+    @include open-sans('Regular');
+    border-bottom: rem(1) solid $primary-color;
+    border-right: rem(1) solid $primary-color;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  td {
+    @include open-sans('SemiBold');
+    position: relative;
+    border-right: rem(1) solid transparent;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      height: 50%;
+      width: rem(1);
+      background-color: $grey;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &:last-child::after {
+      content: none;
+    }
+  }
+}

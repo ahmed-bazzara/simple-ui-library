@@ -1,0 +1,11 @@
+@mixin hide-out-of-sight() {
+  appearance: none;
+  left: -1000rem;
+  position: fixed;
+}
+
+@mixin hide-scrollbar() {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

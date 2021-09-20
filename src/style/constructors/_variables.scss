@@ -1,0 +1,53 @@
+@import 'functions';
+@import 'colours';
+
+$base-unit: rem(20);
+$base-font-size: rem(16);
+
+// Layout
+$top-spacing: rem(75);
+
+// Animation
+$swift-out-transition: cubic-bezier(0.55, 0, 0.1, 1);
+
+// Components
+
+$component-keypad-option-height: 6.48vh;
+
+// Button
+$button-height: rem(56);
+
+// Keypad
+$component-keypad-width: rem(640);
+$component-keypad-max-width: 40%;
+
+// Layers (z-indexes)
+$top-most-layer: 30;
+$loader-layer: 25;
+$sidebar-layer: 15;
+$modals-layer: 20;
+$full-screen-overlay-layer: 10;
+$main-content-overlay-layer: 5;
+$above-layer: 1;
+$normal-layer: 0;
+
+// Overlay Input
+$overlay-transition-duration: 500ms;
+
+// Input
+$input-active-label-font-size: rem(18);
+$input-content-font-size: rem(28);
+$input-top-padding: rem(0);
+$input-horizontal-padding: rem(7);
+$input-bottom-padding: rem(9);
+$line-height-factor: 1.5;
+$faux-input-size: rem(78);
+
+// Tabs Container
+
+$tabs-container-width: rem(400);
+
+// Shadows
+
+$neutral-shadow: 0 rem(4) rem(8) rgba(0, 0, 0, 0.16),
+  0 rem(2) rem(4) rgba(0, 0, 0, 0.16);

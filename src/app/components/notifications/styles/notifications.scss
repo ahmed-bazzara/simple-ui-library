@@ -1,0 +1,33 @@
+@import 'src/style/constructors/constructors';
+
+@keyframes notification-slide-in {
+  from {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes notification-slide-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+.cmn-notification {
+  animation: notification-slide-in 120ms ease-in-out;
+
+  &.exiting {
+    animation: notification-slide-out 120ms ease-in-out forwards;
+  }
+}

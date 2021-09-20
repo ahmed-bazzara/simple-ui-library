@@ -1,0 +1,123 @@
+$reject-login-shake-base-unit: $base-unit * 2;
+
+@keyframes reject-login-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  8%,
+  41% {
+    transform: translateX(-$reject-login-shake-base-unit);
+  }
+
+  25%,
+  58% {
+    transform: translateX($reject-login-shake-base-unit / 2);
+  }
+
+  75% {
+    transform: translateX(-$reject-login-shake-base-unit / 4);
+  }
+
+  92% {
+    transform: translateX($reject-login-shake-base-unit / 4);
+  }
+}
+
+@keyframes keypad-key-highlight {
+  0%,
+  100% {
+    background-color: inherit;
+    color: inherit;
+    outline-color: $primary-color;
+  }
+
+  10% {
+    background-color: lighten($primary-color, 10%);
+    color: $primary-accent;
+    outline-color: darken($primary-color, 5%);
+  }
+}
+
+@keyframes keypad-key-highlight-warning {
+  0%,
+  100% {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  10% {
+    background-color: lighten($blue-darker, 10%);
+    color: $warning;
+  }
+}
+
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  13% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  63% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(4, 4);
+    opacity: 0;
+  }
+}
+
+@keyframes weight-graph {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleX(100%);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-success {
+  0% {
+    box-shadow: 0 0 0 0 rgba($success, 0.5);
+    background-color: $success;
+  }
+
+  100% {
+    box-shadow: 0 0 0 rem(20) rgba($success, 0);
+  }
+}
+
+@keyframes pulse-failure {
+  0% {
+    box-shadow: 0 0 0 0 rgba($danger, 0.5);
+    background-color: $danger;
+  }
+
+  100% {
+    box-shadow: 0 0 0 rem(20) rgba($danger, 0);
+  }
+}

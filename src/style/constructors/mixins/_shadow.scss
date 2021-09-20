@@ -1,0 +1,59 @@
+%shadow-placeholder {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: rem(6);
+}
+
+@mixin shadow-right($transparencyLevel: 0.7) {
+  &::after {
+    @extend %shadow-placeholder;
+    right: rem(-6);
+    background: linear-gradient(
+      90deg,
+      transparentize($black, $transparencyLevel) 0,
+      transparent 100%
+    );
+  }
+}
+
+@mixin inner-shadow-right($transparencyLevel: 0.7) {
+  &::after {
+    @extend %shadow-placeholder;
+    right: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0,
+      transparentize($black, $transparencyLevel) 100%
+    );
+  }
+}
+
+@mixin inner-shadow-left($transparencyLevel: 0.7) {
+  &::after {
+    @extend %shadow-placeholder;
+    right: rem(-6);
+    background: linear-gradient(
+      90deg,
+      transparentize($black, $transparencyLevel) 0,
+      transparent 100%
+    );
+  }
+}
+
+@mixin shadow-left($transparencyLevel: 0.7) {
+  &::after {
+    content: '';
+    position: absolute;
+    left: rem(-6);
+    background: linear-gradient(
+      90deg,
+      transparent 0,
+      transparentize($black, $transparencyLevel) 100%
+    );
+    top: 0;
+    bottom: 0;
+    width: rem(6);
+  }
+}

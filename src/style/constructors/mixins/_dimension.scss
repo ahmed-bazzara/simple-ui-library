@@ -1,0 +1,12 @@
+@mixin size($size: 0) {
+  width: $size;
+  height: $size;
+}
+
+@mixin fullscreen() {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

@@ -1,0 +1,133 @@
+/* stylelint-disable color-no-hex */
+
+// New colour palette
+
+// Neutrals
+
+$neutral-grey-color: #ccc;
+$neutral-grey-light-color: #eee;
+$neutral-grey-lighter-color: #f6f6f6;
+
+$white: #fff;
+$white-opaque: rgba(255, 255, 255, 0.1);
+$white-transparent: rgba(255, 255, 255, 0.05);
+
+// Text
+
+$text-dark-color: #444;
+$text-grey-dark-color: rgba(68, 68, 68, 0.48);
+$text-grey-color: rgba(68, 68, 68, 0.24);
+$text-light-color: rgba(68, 68, 68, 0.1);
+$text-lighter-color: rgba(68, 68, 68, 0.05);
+
+$primary-text-color: #529896;
+$secondary-text-color: #445b66;
+$negative-text-color: #b66060;
+$caution-text-color: #b38a5e;
+
+// Primary
+
+// $primary-color: #7ececd;
+$primary-opaque-color: rgba(126, 206, 205, 0.24);
+$primary-transparent-color: rgba(126, 206, 205, 0.05);
+
+// $primary-light-color: linear-gradient(0deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.16)), $primary-color;
+// $primary-dark-color: linear-gradient(0deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)), $primary-color;
+
+// Secondary
+
+// $secondary-color: #445b66;
+$secondary-opaque-color: rgba(68, 91, 102, 0.8);
+$secondary-transparent-color: rgba(68, 91, 102, 0.05);
+
+// Negative
+
+$negative-color: #f28585;
+$negative-opaque-color: rgba(242, 133, 133, 0.8);
+$negative-transparent-color: rgba(242, 133, 133, 0.05);
+
+// Caution
+
+$caution-color: #f2b879;
+$caution-opaque-color: rgba(242, 184, 121, 0.8);
+$caution-transparent-color: rgba(242, 184, 121, 0.05);
+
+// Navigation
+
+$navigation-darkest-color: #6e8890;
+$navigation-dark-color: #7d989e;
+$navigation-normal-color: #91aeb5;
+
+// Old colour palette
+
+$green-light: #b5e1e1;
+$green: #7ececd;
+$green-alternative: #a2e4a1;
+$diaverum-orange: #e86825;
+$blueish-green: #7bd3a2;
+$see-through-green: rgba($green, 0.24);
+
+$blue: #7b94db;
+$blue-darker: #445b66;
+$blue-grey-dark: #070707;
+$blue-grey: #91aeb5;
+$section-title: #8a93a1;
+$blue-grey-light: #9cbbc2;
+$see-through-blue-grey: rgba(156, 187, 194, 0.1);
+
+$grey-lighter: #f6f6f6;
+$grey-light: #eee;
+$grey: #ccc;
+$grey-dark: #999;
+$grey-darker: #444;
+$see-through-grey: rgba(204, 204, 204, 0.5);
+
+$black: #000;
+$see-through-black: rgba(0, 0, 0, 0.4);
+
+// Colour variables
+
+$primary-color: $blue-darker;
+$primary-transparent-color: rgba(126, 206, 205, 0.05);
+$secondary-color: $blue-grey;
+$primary-color-alternative: #4a6572;
+$primary-accent: $green;
+
+$secondary-accent: $blue;
+$without-allergies: $green-alternative;
+$success: $primary-accent;
+$danger: #f28585;
+$warning: #f2b879;
+$danger-text: $black;
+$warning-text: $white;
+
+$indexed-list-content-header-color: $primary-color;
+$indexed-list-content-header-background-color: $white;
+$indexed-list-content-color: $grey-darker;
+$alphabetical-separator-color: $white;
+
+$username-color: #8a93a1;
+
+// Modal
+$modal-box: $grey-lighter;
+
+// Overlay
+$overlay-color: rgba($primary-color-alternative, 0.92);
+$overlay-warning-color: rgba($warning, 0.92);
+$overlay-error-color: rgba($danger, 0.92);
+
+$overlay-primary-detail-color: $white;
+$overlay-secondary-detail-color: $primary-accent;
+$overlay-warning-error-detail-color: $primary-color;
+
+// Inputs and Buttons
+$label-color: #666;
+$input-suffix-color: #767676;
+$toggle-handle-box-shadow-color: #aaa;
+$confirm-button-text-color: $white;
+$disabled-button: rgba(68, 68, 68, 0.1);
+
+// Error display
+$error-header: #8992a0;
+$error-text: #a6a6a6;
+$error-icon: $grey-light;
