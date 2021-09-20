@@ -1,7 +1,6 @@
 {
   "name": "simple-ui-library",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@emotion/react": "^11.4.1",
@@ -21,15 +20,31 @@
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahmed-bazzara/simple-ui-library.git"
+  },
+  "main": "lib/src/index.js", 
+  "private": false,
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
-    "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'"
+    "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
+    "clean": "rm -rf ./lib",
+    "prebuild": "yarn clean",
+    "build": "tsc --build \"./tsconfig.json\"",
+    "copy-files": "copyfiles -u 1 src/style/base.css lib/",
+    "postbuild": "yarn run copy-files"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.3.8",

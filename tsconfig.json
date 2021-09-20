@@ -19,21 +19,46 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "outDir": "lib",
+    "jsx": "react",
+    "module": "commonjs",
+    "declarationMap": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true
   },
+  // "include": [
+  //   "src",
+  //   "./global.d.ts",
+  //   "./src/**/*.ts",
+  //   "./src/**/*.tsx",
+  //   "./src/**/*.js",
+  //   ".storybook",
+  //   "__test__"
+  // ],
   "include": [
-    "src",
-    "./global.d.ts",
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./src/**/*.js",
-    ".storybook",
-    "__test__"
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.stories.tsx",
+    "./src/setupTests.ts"
+  ],
+  "files": [
+    "./src/index.ts"
   ]
 }
