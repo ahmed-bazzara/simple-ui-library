@@ -24,7 +24,7 @@
     "type": "git",
     "url": "https://github.com/ahmed-bazzara/simple-ui-library.git"
   },
-  "main": "lib/src/index.js",
+  "main": "lib/src/npm_index.js",
   "private": false,
   "directories": {
     "lib": "lib"
@@ -44,7 +44,7 @@
     "clean": "rm -rf ./lib",
     "prebuild": "yarn clean",
     "build": "tsc --build \"./tsconfig.json\"",
-    "copy-files": "copyfiles -u 1 src/style/base.css lib/",
+    "copy-files": "copyfiles -u 1 src/style/_global.scss lib/",
     "postbuild": "yarn run copy-files"
   },
   "devDependencies": {
@@ -65,14 +65,16 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-airbnb-typescript": "^14.0.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-unicorn": "^36.0.0",
     "fork-ts-checker-webpack-plugin": "^6.3.3",
     "node-sass": "^6.0.1",
-    "prettier": "^2.4.1",
+    "prettier": "2.4.1",
     "storybook-readme": "^5.0.9",
     "svg-inline-loader": "^0.8.2",
     "ts-loader": "^9.2.5"

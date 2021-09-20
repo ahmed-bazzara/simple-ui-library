@@ -14,7 +14,7 @@ export interface NotificationOptions {
   timeout?: number;
 }
 
-interface NotificationsProps {
+export interface NotificationsProps {
   children: React.ReactNode;
   defaultTimeout?: number;
 }

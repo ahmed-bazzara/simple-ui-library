@@ -4,11 +4,14 @@
     "lib": [
       "dom",
       "es2015",
+      "es2016",
+      "es2017",
       "esnext"
     ],
     "outDir": "lib",
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "declaration": true,
+    "declarationDir": "lib",
     "allowJs": true,
     "checkJs": false,
     "skipLibCheck": true,
@@ -20,7 +23,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "downlevelIteration": true,
     "jsx": "react",
     "module": "commonjs",
@@ -41,6 +43,8 @@
     "./global.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx",
+    "./src/**/*.stories.ts",
+    "./src/**/*.stories.tsx",
     "./src/**/*.js",
     ".storybook",
     "__test__"

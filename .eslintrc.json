@@ -1,23 +1,30 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
+    // "settings": {
+    //     "import/resolver": {
+    //         "typescript": {
+    //             "alwaysTryTypes": true
+    //         }
+    //     }
+    // },
+    // "plugins": [
+    //     "@typescript-eslint"
+    // ],
+    "plugins": [
+        // "prettier",
+        "@typescript-eslint"
+    ],
     "extends": [
         "airbnb-typescript",
         "react-app",
         "plugin:react/recommended"
+        // "plugin:prettier/recommended",
+        // "prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "sourceType": "module",
+        // "sourceType": "module",
         "project": "./tsconfig.json"
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint",
-        "react-hooks"
-    ],
     "rules": {
         "react/jsx-filename-extension": [
             "warn",
@@ -70,6 +77,39 @@
             "unix"
         ],
         "prefer-promise-reject-errors": "off",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "object-curly-spacing": [
+            "warn",
+            "always"
+        ],
+        "no-unused-vars": [
+            "warn",
+            {
+                "vars": "all",
+                "args": "none"
+            }
+        ],
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                "vars": "all",
+                "args": "none"
+            }
+        ],
+        "@typescript-eslint/no-explicit-any": [
+            "error",
+            {
+                "ignoreRestArgs": true
+            }
+        ],
+        "no-plusplus": [
+            "error",
+            {
+                "allowForLoopAfterthoughts": true
+            }
+        ],
+        "react/jsx-key": "error",
+        "react/jsx-props-no-spreading": "off"
+        // "prettier/prettier": "error"
     }
 }
