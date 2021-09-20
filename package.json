@@ -1,6 +1,7 @@
 {
   "name": "simple-ui-library",
   "version": "0.1.7",
+  "types": "./npm_index.d.ts",
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@emotion/react": "^11.4.1",
