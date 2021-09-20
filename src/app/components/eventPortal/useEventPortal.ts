@@ -38,6 +38,11 @@ function useEventPortal(arg1: any, arg2?: any, arg3?: any): void {
           removeEventListener(name, handler),
         );
     }
+
+    return (): void =>
+      Object.entries<ReactEventHandler>(arg1).forEach(([name, handler]) =>
+        removeEventListener(name, handler),
+      );
   }, [addEventListener, removeEventListener, arg1, arg2, arg3]);
 }
 

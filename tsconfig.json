@@ -59,6 +59,6 @@
     "./src/setupTests.ts"
   ],
   "files": [
-    "./src/index.ts"
+    "./src/npm_index.ts"
   ]
 }

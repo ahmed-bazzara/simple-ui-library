@@ -24,7 +24,7 @@
     "type": "git",
     "url": "https://github.com/ahmed-bazzara/simple-ui-library.git"
   },
-  "main": "lib/src/index.js", 
+  "main": "lib/src/index.js",
   "private": false,
   "directories": {
     "lib": "lib"
@@ -56,8 +56,9 @@
     "@storybook/react": "^6.3.8",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
-    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-loader": "8.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "copyfiles": "^2.4.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-typescript": "^14.0.0",
