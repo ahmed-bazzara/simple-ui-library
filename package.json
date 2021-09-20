@@ -76,6 +76,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-unicorn": "^36.0.0",
     "fork-ts-checker-webpack-plugin": "^6.3.3",
+    "lorem-ipsum": "^2.0.3",
     "node-sass": "^6.0.1",
     "prettier": "2.4.1",
     "storybook-readme": "^5.0.9",
