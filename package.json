@@ -15,6 +15,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "classnames": "^2.3.1",
+    "framer-motion": "^4.1.17",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-jss": "^10.7.1",
@@ -46,7 +47,8 @@
     "prebuild": "yarn clean",
     "build": "tsc --build \"./tsconfig.json\"",
     "copy-files": "copyfiles -u 1 src/style/_global.scss lib/",
-    "postbuild": "yarn run copy-files"
+    "build:sass": "node-sass src/style/ -o lib/style/",
+    "postbuild": "yarn run copy-files & yarn build:sass"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.3.8",

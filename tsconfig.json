@@ -9,7 +9,7 @@
       "esnext"
     ],
     "outDir": "lib",
-    "baseUrl": "./",
+    "baseUrl": "src",
     "declaration": true,
     "declarationDir": "lib",
     "allowJs": true,
@@ -24,8 +24,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "downlevelIteration": true,
-    "jsx": "react",
-    "module": "commonjs",
+    "jsx": "react-jsx",
+    "module": "esnext",
     "declarationMap": true,
     "sourceMap": true,
     "noImplicitAny": false,
@@ -37,11 +37,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "paths": {
-      "*": [
-        "src/*"
-      ]
-    },
     "plugins": [
       {
         "transform": "typescript-transform-paths"
@@ -50,7 +45,8 @@
         "transform": "typescript-transform-paths",
         "afterDeclarations": true
       }
-    ]
+    ],
+    "noEmit": true
   },
   "include": [
     "src",
@@ -64,10 +60,6 @@
     ".storybook",
     "__test__"
   ],
-  // "include": [
-  //   "src",
-  //   "**/*.stories.tsx",
-  // ],
   "exclude": [
     "node_modules",
     "**/*.test.ts",

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from 'app/components';
 import {
   THEMES,
@@ -9,6 +8,7 @@ import {
 } from 'app/constants';
 import { ButtonProps } from 'app/components/buttons/Button';
 import './styles/buttons.scss';
+import React from 'react';
 
 const Buttons = (): JSX.Element => {
   const getRegularButtonProps = (): ButtonProps[] => [
