@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon, IconProps } from 'app/components';
 import { transition } from 'utilities';
+import { css } from '@emotion/css';
 
 // export const StyledExpandedStatusIndicatorT = styled<
 // React.FC<IconProps>,
@@ -17,12 +18,13 @@ import { transition } from 'utilities';
 
 export const StyledExpandedStatusIndicator: React.FC<IconProps & { expanded?: boolean }> = ({ expanded, ...props }) => (
   <Icon
-    css={{
+    className={css({
       transition: transition('transform'),
       ...expanded && {
         transform: 'rotate(90deg)',
       },
-    }}
+    })}
+    
     {...props}
   />
 );

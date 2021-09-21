@@ -1,5 +1,5 @@
 import React from 'react';
-import { jsx, css, ObjectInterpolation } from '@emotion/core';
+import { jsx, css, CSSObject } from '@emotion/react';
 
 import { pointerHandlers } from 'utilities';
 import { rem } from 'utilities/css';
@@ -14,7 +14,7 @@ export type TypographyProps = {
   color?: ColorName;
   children?: React.ReactNode;
   className?: string;
-  variant: { element: string; style: ObjectInterpolation<undefined> };
+  variant: { element: string; style: CSSObject };
   noTopMargin?: boolean;
   noBottomMargin?: boolean;
   lineClamp?: number;

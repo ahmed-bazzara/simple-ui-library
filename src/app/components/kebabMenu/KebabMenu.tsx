@@ -6,6 +6,7 @@ import {
   StyledKebabMenuWrapper,
 } from './styles';
 import { Z_INDEX } from 'app/constants';
+import { css } from '@emotion/css';
 
 export type KebabMenuProps = Omit<ContextMenuProps, 'isOpen' | 'onClose'> & {
   isDisabled?: boolean;
@@ -35,13 +36,20 @@ export const KebabMenu = ({
         <Icon icon={ICON_NAME.KEBAB_MENU} />
       </StyledKebabMenuButton>
       <ContextMenu
-        css={{
+        className={css({
           maxHeight: rem(230),
           zIndex: Z_INDEX.ABOVE,
           position: 'absolute',
           top: rem(32),
           right: 0,
-        }}
+        })}
+        // css={{
+        //   maxHeight: rem(230),
+        //   zIndex: Z_INDEX.ABOVE,
+        //   position: 'absolute',
+        //   top: rem(32),
+        //   right: 0,
+        // }}
         isOpen={isOpen && !isDisabled}
         onClose={handleContextMenuClose}
         {...restProps}

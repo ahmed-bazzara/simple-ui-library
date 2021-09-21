@@ -1,6 +1,7 @@
 import { rem, transition } from 'utilities';
 import { COLOR } from 'app/constants';
 import BaseCardSegment, { BaseCardSegmentProps } from '../cardSegment/Base';
+import { css } from '@emotion/css';
 
 // export const StyledRow = ({ hoverable }: { hoverable?: boolean  } & BaseCardSegmentProps) => styled<{ hoverable?: boolean }>(BaseCardSegment)(
 //   {
@@ -29,7 +30,7 @@ type StyledRowProps = BaseCardSegmentProps & {
 
 export const StyledRow: React.FC<StyledRowProps> = ({ hoverable, ...props }) => (
   <BaseCardSegment
-    css={{
+    className={css({
       transition: transition('background-color'),
       ':not(:last-child)': {
         borderBottom: `${rem(1)} solid ${COLOR.neutralGrey28}`,
@@ -37,7 +38,7 @@ export const StyledRow: React.FC<StyledRowProps> = ({ hoverable, ...props }) => 
       '&:hover' : {
         backgroundColor: hoverable ? COLOR.primary5 : 'inherit',
       },
-    }}
+    })}
     {...props}
   />
 );

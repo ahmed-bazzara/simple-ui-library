@@ -1,4 +1,9 @@
-import { Button } from 'app/components';
+import { Button, Text } from 'app/components';
 
-const App = () => <Button label="App" appearance="circular" />;
+const App = () => (
+<>
+  <Button label="App" />
+  <Text>Test</Text>
+</>
+);
 export default App;

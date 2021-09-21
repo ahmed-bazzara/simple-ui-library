@@ -9,6 +9,7 @@ import { text, boolean, select } from '@storybook/addon-knobs';
 import { COLOR, ColorName } from 'app/constants';
 import styled from '@emotion/styled';
 import { rem } from 'utilities';
+import { css } from '@emotion/css';
 
 export default {
   title: 'Typography/HighlightedText',
@@ -41,10 +42,10 @@ export const Interactive: React.FC = () => (
               'text',
             ) as ColorName
           }
-          css={{
+          className={css({
             backgroundColor: COLOR.secondary5,
             borderRadius: rem(2),
-          }}
+          })}
           highlightedText={text('High-lighted text', '')}
           variant={
             select(

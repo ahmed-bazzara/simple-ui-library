@@ -1,5 +1,5 @@
 import React from 'react';
-import { Global, css, SerializedStyles } from '@emotion/core';
+import { Global, css, SerializedStyles } from '@emotion/react';
 
 const fontFace = (
   fontFamily: string,

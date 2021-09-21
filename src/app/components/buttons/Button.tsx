@@ -2,42 +2,44 @@
 /* eslint-disable no-duplicate-case */
 import React, { useMemo } from 'react';
 import { pointerHandlers, rem, shadow, transition } from 'utilities';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import { Theme, AppearanceType, THEMES, APPEARANCES, COLOR } from 'app/constants';
 import { Text } from 'app/components';
-import styled, { CSSObject } from '@emotion/styled';
+// import styled from '@emotion/styled';
 import { Icon, IconName } from 'npm_index';
+import { cx, css, CSSInterpolation } from '@emotion/css';
 
 const BUTTON_HIGHT = 56;
 
-const StyledButton = styled.button({
-  transition: transition('background-color'),
-  boxShadow: shadow(1, 3, 2, 1, 1, 1),
-  cursor: 'pointer',
-  display: 'block',
-  height: rem(BUTTON_HIGHT),
-  maxWidth: '100%',
-  fontSize: rem(18),
-  padding: rem(0, 26),
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-  overflow: 'hidden',
-  background: 'none',
-  backgroundColor: COLOR.primary,
-  fill: COLOR.neutralWhite,
-  border: 'none',
-  borderRadius: rem(8),
-  outline: 'none',
-  touchAction: 'manipulation',
+// const StyledButton = styled.button({
+const buttonStyles = css`
+  transition: ${transition('background-color')};
+  box-shadow: ${shadow(1, 3, 2, 1, 1, 1)};
+  cursor: pointer;
+  display: block;
+  height: ${rem(BUTTON_HIGHT)};
+  max-width: 100%;
+  font-size: ${rem(18)};
+  padding: ${rem(0, 26)};
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  background: none;
+  background-color: ${COLOR.primary};
+  fill: ${COLOR.neutralWhite};
+  border: none;
+  border-radius: ${rem(8)};
+  outline: none;
+  touch-action: manipulation;
   
-  ':hover': {
-    boxShadow: shadow(1, 5, 3, 1, 2, 2),
-  },
-  ':focus': {
-    boxShadow: shadow(1, 5, 3, 1, 2, 2),
-  },
-  ':active': { boxShadow: 'none' },
-});
+  &:hover {
+    box-shadow: ${shadow(1, 5, 3, 1, 2, 2)};
+  };
+  &:focus {
+    box-shadow: ${shadow(1, 5, 3, 1, 2, 2)};
+  };
+  /* :active { box-shadow: 'none' }; */
+`;
 
 export interface ButtonProps {
   appearance?: AppearanceType;
@@ -84,7 +86,7 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
     onMouseDown,
     onClick: clickHandler,
     onConfirm,
-    theme,
+    // theme,
     validate,
   } = {
     ...defaultProps,
@@ -97,12 +99,12 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
   //   || (Object.values(internalValidationResults).some((result) => result.hasError())
   //     && disableSubmitOnValidationError
   //     && isSubmitButton);
-  const classNames = classnames('cmn-button', className, appearance, {
-    disabled: disableButton,
-    'with-icon': icon,
-    [theme]:
-      appearance !== APPEARANCES.LINK && appearance !== APPEARANCES.LINK_SMALL,
-  });
+  // const classNames = classnames('cmn-button', className, appearance, {
+  //   disabled: disableButton,
+  //   'with-icon': icon,
+  //   [theme]:
+  //     appearance !== APPEARANCES.LINK && appearance !== APPEARANCES.LINK_SMALL,
+  // });
 
   const handleClick = (
     event:
@@ -121,12 +123,20 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
   };
 
   const customStyles = useMemo(() => {
-    const appearanceStyles: CSSObject = {};
+    // const appearanceStyles = '';
+    // const appearanceStyles = {};
+    const appearanceStyles: CSSInterpolation = {};
     switch (appearance) {
-      case 'regular':
       case 'link':
       case 'link-small':
-        appearanceStyles.fontWeight = 400;
+        appearanceStyles.border = 'none';
+        appearanceStyles.boxShadow = 'none';
+        appearanceStyles['&:hover'] = { backgroundColor: `transparentize(${COLOR.primary}, 0.2)` };
+        appearanceStyles[':not(.disabled):active'] = { backgroundColor: COLOR.primary };
+        appearanceStyles.paddingLeft = rem(8);
+        appearanceStyles.paddingRight = rem(8);
+        break;
+
       case 'circular':
       case 'square':
         appearanceStyles.width = rem(BUTTON_HIGHT);
@@ -138,36 +148,25 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
       case 'circular':
         appearanceStyles.boxShadow = shadow(3, 5, 1, 18, 2, 2);
         appearanceStyles.borderRadius = rem(BUTTON_HIGHT / 2);
-        appearanceStyles[':hover'] = { boxShadow: shadow(3, 5, 1, 18, 2, 2) };
-        appearanceStyles[':focus'] = { boxShadow: shadow(3, 5, 1, 18, 2, 2) };
-        
-      case 'link':
-      case 'link-small':
-        appearanceStyles.border = 'none';
-        appearanceStyles.boxShadow = 'none';
-        appearanceStyles[':hover'] = { backgroundColor: `transparentize(${COLOR.primary}, 0.2)` };
-        appearanceStyles[':not(.disabled):active'] = { backgroundColor: COLOR.primary };
-
-      case 'link-small':
-        appearanceStyles.paddingLeft = rem(8);
-        appearanceStyles.paddingRight = rem(8);
-
+        appearanceStyles['&:hover'] = { boxShadow: shadow(3, 5, 1, 18, 2, 2) };
+        appearanceStyles['&:focus'] = { boxShadow: shadow(3, 5, 1, 18, 2, 2) };
+      
       default:
         break;
     }
-
-    return ({ appearanceStyles });
+ 
+    return ({ appearance: css(appearanceStyles) });
+    // return ({ appearanceStyles });
   }, [appearance]);
-
-  console.log(customStyles);
-  
+ 
   return isAvailable ? (
-    <StyledButton
+    <button
       {...pointerHandlers(handleClick)}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      css={{ ...customStyles.appearanceStyles as any }}
+      // css={{ ...customStyles.appearanceStyles }}
       // css={{ backgroundColor: 'red', fontsize: '26px' }}
-      className={classNames}
+      className={cx(buttonStyles, customStyles.appearance, className )}
+      // className={classNames}
       disabled={disableButton}
       onAnimationEnd={onAnimationEnd}
       onMouseDown={onMouseDown}
@@ -176,7 +175,7 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
       {icon && <Icon icon={icon}/>}
       {label && <Text>{label}</Text>}
       {children}
-    </StyledButton>
+    </button>
   ) : null;
 };
 
