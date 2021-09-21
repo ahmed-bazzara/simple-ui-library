@@ -47,8 +47,7 @@
     "prebuild": "yarn clean",
     "build": "tsc --build \"./tsconfig.json\"",
     "copy-files": "copyfiles -u 1 src/style/_global.scss lib/",
-    "build:sass": "node-sass src/style/ -o lib/style/",
-    "postbuild": "yarn run copy-files & yarn build:sass"
+    "postbuild": "yarn run copy-files"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.3.8",
