@@ -1,6 +1,6 @@
 {
   "name": "simple-ui-library",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "types": "lib/npm_index.d.ts",
   "main": "lib/npm_index.js",
   "dependencies": {
