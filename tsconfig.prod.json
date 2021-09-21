@@ -1,0 +1,33 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "checkJs": false,
+    "declaration": true,
+    "sourceMap": true,
+    "noEmit": false,
+    "jsx": "react-jsx",
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths"
+      },
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ]
+  },
+  "include": [
+    "./global.d.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./src/**/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "./src/**/stories",
+    "**/*.spec.ts",
+    "./src/App.tsx",
+    "./src/index.tsx"
+  ]
+}

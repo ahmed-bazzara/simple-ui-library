@@ -24,7 +24,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "downlevelIteration": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "module": "esnext",
     "declarationMap": true,
     "sourceMap": true,
@@ -37,15 +37,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "plugins": [
-      {
-        "transform": "typescript-transform-paths"
-      },
-      {
-        "transform": "typescript-transform-paths",
-        "afterDeclarations": true
-      }
-    ],
     "noEmit": true
   },
   "include": [
@@ -54,8 +45,6 @@
     "./src/modules.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx",
-    // "./src/**/*.stories.ts",
-    // "./src/**/*.stories.tsx",
     "./src/**/*.js",
     ".storybook",
     "__test__"

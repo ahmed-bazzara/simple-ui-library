@@ -45,9 +45,7 @@
     "format": "prettier --write src/**/*.{ts,tsx,js,jsx,scss,css,json}",
     "clean": "rm -rf ./lib",
     "prebuild": "yarn clean",
-    "build": "tsc --build \"./tsconfig.json\"",
-    "copy-files": "copyfiles -u 1 src/style/_global.scss lib/",
-    "postbuild": "yarn run copy-files"
+    "build": "tsc --build \"./tsconfig.prod.json\""
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.3.8",
