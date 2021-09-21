@@ -1,4 +1,4 @@
-import { ValueOf } from 'types';
+import { ValueOf } from 'app/constants';
 
 export type TypographyAlignment =
   | 'inherit'

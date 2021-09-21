@@ -1,12 +1,9 @@
-import React from 'react';
-import { CenterStory } from 'app/storybook/decorators';
 import { loremIpsum } from 'lorem-ipsum';
 import { KebabMenu, KebabMenuProps } from '..';
 
 export default {
   title: 'Menus/KebabMenu',
   component: KebabMenu,
-  decorators: [CenterStory],
   args: {
     options: Array.from(Array(5)).map(() => ({
       title: loremIpsum({ units: 'sentences', count: 1 }),

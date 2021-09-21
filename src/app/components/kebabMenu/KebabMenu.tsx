@@ -1,11 +1,11 @@
-import React, { useState, useCallback } from 'react';
-import { pointerHandlers } from 'utilities';
-import { ICON_NAME, Icon, ContextMenuProps } from 'app/components';
+import { useState, useCallback } from 'react';
+import { pointerHandlers, rem } from 'utilities';
+import { ICON_NAME, Icon, ContextMenuProps, ContextMenu } from 'app/components';
 import {
   StyledKebabMenuButton,
-  StyledKebabMenuDropdown,
   StyledKebabMenuWrapper,
 } from './styles';
+import { Z_INDEX } from 'app/constants';
 
 export type KebabMenuProps = Omit<ContextMenuProps, 'isOpen' | 'onClose'> & {
   isDisabled?: boolean;
@@ -34,11 +34,23 @@ export const KebabMenu = ({
       >
         <Icon icon={ICON_NAME.KEBAB_MENU} />
       </StyledKebabMenuButton>
-      <StyledKebabMenuDropdown
+      <ContextMenu
+        css={{
+          maxHeight: rem(230),
+          zIndex: Z_INDEX.ABOVE,
+          position: 'absolute',
+          top: rem(32),
+          right: 0,
+        }}
         isOpen={isOpen && !isDisabled}
         onClose={handleContextMenuClose}
         {...restProps}
       />
+      {/* <StyledKebabMenuDropdown
+        isOpen={isOpen && !isDisabled}
+        onClose={handleContextMenuClose}
+        {...restProps}
+      /> */}
     </StyledKebabMenuWrapper>
   );
 };

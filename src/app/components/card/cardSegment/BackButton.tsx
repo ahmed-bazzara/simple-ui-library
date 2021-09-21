@@ -1,4 +1,3 @@
-import React from 'react';
 import { Header, ICON_NAME, Icon, Paragraph } from 'app/components';
 import Row from './Row';
 

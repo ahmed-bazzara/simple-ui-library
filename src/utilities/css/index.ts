@@ -4,3 +4,4 @@ export { default as parseColor } from './parseColor';
 export { default as rgba } from './rgba';
 export { default as customScrollBar } from './customScrollBar';
 export { default as withDefaultUnit } from './withDefaultUnit';
+export { default as shadow } from './shadow';

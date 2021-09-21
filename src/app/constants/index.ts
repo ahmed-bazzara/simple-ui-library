@@ -1,4 +1,4 @@
-type ValueOf<T> = T[keyof T];
+export type ValueOf<T> = T[keyof T];
 
 export * from './stories.constants';
 export * from './colors.constants';

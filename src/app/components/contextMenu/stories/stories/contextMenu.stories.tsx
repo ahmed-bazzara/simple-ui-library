@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ContextMenu, ICON_NAME, Icon } from 'app/components';
 import { loremIpsum } from 'lorem-ipsum';
 import { ContextMenuProps } from '../../ContextMenu';

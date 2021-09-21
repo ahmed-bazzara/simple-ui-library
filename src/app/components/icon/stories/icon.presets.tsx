@@ -75,7 +75,7 @@ export const Presets: React.FC = () => {
 
   return (
     <StyledIconPreset>
-      {Object.values(ICON_NAME).map((name: IconName, index) => (
+      {Object.values(ICON_NAME).map((name: IconName) => (
         <StyledIconTopWrapper
           key={name}
           onClick={(): Promise<void> => copyToClipBoard(name)}

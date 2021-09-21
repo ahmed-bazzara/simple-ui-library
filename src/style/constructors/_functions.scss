@@ -1,7 +1,0 @@
-@function vmin($value) {
-  @return $value * 100vmin / 1200;
-}
-
-@function rem($pixels) {
-  @return ($pixels / 16) * 1rem;
-}

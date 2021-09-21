@@ -19,7 +19,6 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -46,7 +45,8 @@
         "afterDeclarations": true
       }
     ],
-    "noEmit": true
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": false
   },
   "include": [
     "src",
@@ -54,8 +54,8 @@
     "./src/modules.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx",
-    "./src/**/*.stories.ts",
-    "./src/**/*.stories.tsx",
+    // "./src/**/*.stories.ts",
+    // "./src/**/*.stories.tsx",
     "./src/**/*.js",
     ".storybook",
     "__test__"

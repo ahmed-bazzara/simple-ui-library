@@ -52,6 +52,12 @@ export const COLOR = {
   // secondary/green
   secondaryGreen: 'rgba(129, 208, 128, 1)',
 
+  // Black
+  black: 'rgba(0, 0, 0, 1)',
+  shadowBlackPrimary: 'rgba(0, 0, 0, 0.2)',
+  shadowBlackSecondary: 'rgba(0, 0, 0, 0.12)',
+  shadowBlackTertiary: 'rgba(0, 0, 0, 0.14)',
+
   legacy_primary_alternative: '#4a6572',
 } as const;
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from 'app/components';
 import { text, boolean, select } from '@storybook/addon-knobs';
 import {
