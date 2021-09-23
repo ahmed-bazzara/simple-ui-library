@@ -38,10 +38,10 @@ export const MONTHS = [
 ] as const;
 
 export const THEMES = {
-  PRIMARY: 'primary',
-  SECONDARY: 'secondary',
-  NEGATIVE: 'negative',
-  NEUTRAL: 'neutral',
+  PRIMARY: 'primary' as const,
+  SECONDARY: 'secondary' as const,
+  NEGATIVE: 'negative' as const,
+  NEUTRAL: 'neutral' as const,
 } as const;
 
 export type Theme = ValueOf<typeof THEMES>;
@@ -49,16 +49,16 @@ export type Theme = ValueOf<typeof THEMES>;
 export const THEME_MODES = Object.values(THEMES);
 
 export const APPEARANCES = {
-  REGULAR: 'regular',
-  SQUARE: 'square',
-  CIRCULAR: 'circular',
-  LINK: 'link',
-  LINK_SMALL: 'link-small',
+  REGULAR: 'regular' as const,
+  SQUARE: 'square' as const,
+  CIRCULAR: 'circular' as const,
+  LINK: 'link' as const,
+  LINK_SMALL: 'link-small' as const,
 } as const;
 
-// export type AppearanceType = ValueOf<typeof APPEARANCES>;
-export type AppearanceTypeT = ValueOf<typeof APPEARANCES>;
-export type AppearanceType = typeof APPEARANCES[keyof typeof APPEARANCES] ;
+export type AppearanceKeys = keyof typeof APPEARANCES;
+export type AppearanceType = typeof APPEARANCES[AppearanceKeys];
+// export type AppearanceTypeT = ValueOf<typeof APPEARANCES>;
 
 export const APPEARANCE_MODES = Object.values(APPEARANCES);
 
