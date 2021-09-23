@@ -6,12 +6,12 @@ import {
   Card,
   CardSegment,
   MenuItemCardSegmentProps,
+  Icon,
 } from 'app/components';
 import styled from '@emotion/styled';
 import { loremIpsum } from 'lorem-ipsum';
 import { rem } from 'utilities';
 import { COLOR } from 'app/constants';
-import { Icon } from 'app/components';
 
 interface MenuOption extends MenuItemCardSegmentProps {
   key: string;
@@ -101,7 +101,7 @@ const App = () => {
 
   return (
     <>
-      <Button label="App" />
+      <Button appearance="circular" label="App" />
       <Text>Test</Text>
       <Card>
         {selectedOption && (

@@ -8,10 +8,10 @@
       "es2017",
       "esnext"
     ],
-    "outDir": "lib",
+    "outDir": "dist",
     "baseUrl": "src",
     "declaration": true,
-    "declarationDir": "lib",
+    "declarationDir": "dist",
     "allowJs": true,
     "checkJs": false,
     "skipLibCheck": true,
