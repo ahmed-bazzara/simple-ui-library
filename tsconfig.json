@@ -42,7 +42,7 @@
   "include": [
     "src",
     "./global.d.ts",
-    "./src/modules.d.ts",
+    // "./src/modules.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./src/**/*.js",
@@ -56,6 +56,6 @@
     "./setupTests.ts"
   ],
   "files": [
-    "./src/npm_index.ts"
+    "./src/index.ts"
   ]
 }

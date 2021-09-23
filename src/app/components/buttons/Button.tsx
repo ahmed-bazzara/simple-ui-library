@@ -4,9 +4,8 @@ import React, { useMemo } from 'react';
 import { pointerHandlers, rem, shadow, transition } from 'utilities';
 // import classnames from 'classnames';
 import { Theme, AppearanceType, THEMES, APPEARANCES, COLOR } from 'app/constants';
-import { Text } from 'app/components';
+import { Text, Icon, IconName } from 'app/components';
 // import styled from '@emotion/styled';
-import { Icon, IconName } from 'npm_index';
 import { cx, css, CSSInterpolation } from '@emotion/css';
 
 const BUTTON_HIGHT = 56;

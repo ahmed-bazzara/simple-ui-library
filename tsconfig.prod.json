@@ -2,18 +2,18 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "checkJs": false,
+
     "declaration": true,
+    "declarationDir": "dist",
     "sourceMap": true,
     "noEmit": false,
-    "jsx": "react-jsx",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["src/*"]
+    },
     "plugins": [
-      {
-        "transform": "typescript-transform-paths"
-      },
-      {
-        "transform": "typescript-transform-paths",
-        "afterDeclarations": true
-      }
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ]
   },
   "include": [
