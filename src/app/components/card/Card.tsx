@@ -16,8 +16,8 @@ export const Card = (props: CardProps): JSX.Element => {
 
   return (
     <AnimateSharedLayout type="crossfade">
-      <StyledCard className={className} layout>
-        <AnimatePresence exitBeforeEnter initial={false}>
+      <AnimatePresence exitBeforeEnter initial={false}>
+        <StyledCard className={className} layout>
           {(title || meta) && (
             <CardSegment.Row
               header={
@@ -36,8 +36,8 @@ export const Card = (props: CardProps): JSX.Element => {
             />
           )}
           {children}
-        </AnimatePresence>
-      </StyledCard>
+        </StyledCard>
+      </AnimatePresence>
     </AnimateSharedLayout>
   );
 };

@@ -50,18 +50,15 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.15.4",
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-react": "^7.14.5",
-    "@storybook/addon-actions": "^6.3.8",
     "@storybook/addon-essentials": "^6.3.8",
     "@storybook/addon-knobs": "^6.3.1",
-    "@storybook/addon-links": "^6.3.8",
     "@storybook/node-logger": "^6.3.8",
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.3.8",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
-    "babel-loader": "^8.2.2",
+    "babel-plugin-react-require": "^3.1.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-es2015": "^6.24.1",
     "copyfiles": "^2.4.1",
     "customize-cra": "^1.0.0",
     "eslint": "^7.32.0",
@@ -86,8 +83,11 @@
     "ts-loader": "^9.2.6",
     "ttypescript": "^1.5.12",
     "typescript-transform-paths": "^3.3.1",
-    "webpack": "^5.53.0",
+    "webpack": "4.44.2",
     "webpack-cli": "^4.8.0"
+  },
+  "resolutions": {
+    "babel-loader": "8.1.0"
   },
   "browserslist": {
     "production": [

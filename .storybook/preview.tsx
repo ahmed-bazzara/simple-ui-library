@@ -4,6 +4,7 @@
 //   EventPortalStory,
 //   FullscreenStory,
 // } from '../src/app/storybook/decorators';
+import React from "react";
 import { COLOR } from '../src/app/constants';
 import 'sanitize.css';
 
