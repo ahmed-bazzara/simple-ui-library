@@ -56,9 +56,7 @@ export const APPEARANCES = {
   LINK_SMALL: 'link-small' as const,
 } as const;
 
-export type AppearanceKeys = keyof typeof APPEARANCES;
-export type AppearanceType = typeof APPEARANCES[AppearanceKeys];
-// export type AppearanceTypeT = ValueOf<typeof APPEARANCES>;
+export type AppearanceType = ValueOf<typeof APPEARANCES>;
 
 export const APPEARANCE_MODES = Object.values(APPEARANCES);
 

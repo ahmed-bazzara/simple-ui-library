@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react';
 import { pointerHandlers, rem, shadow, transition } from 'utilities';
 // import classnames from 'classnames';
-import { Theme, AppearanceType, THEMES, APPEARANCES, COLOR } from 'app/constants';
+import { Theme, THEMES, APPEARANCES, AppearanceType, COLOR } from 'app/constants';
 import { Text, Icon, IconName } from 'app/components';
 // import styled from '@emotion/styled';
 import { cx, css, CSSInterpolation } from '@emotion/css';
@@ -73,10 +73,10 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
   //   disableSubmitOnValidationError,
   // } = useContext(FormContext);
   const {
-    appearance,
+    appearance = 'regular',
     className,
-    label,
-    isAvailable,
+    label = '',
+    isAvailable = true,
     isDisabled,
     children,
     icon,
@@ -85,12 +85,9 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
     onMouseDown,
     onClick: clickHandler,
     onConfirm,
-    // theme,
+    // theme = 'primary',
     validate,
-  } = {
-    ...defaultProps,
-    ...props,
-  };
+  } = props;
 
   const disableButton = isDisabled;
   // const isSubmitButton = type === 'submit';
@@ -143,35 +140,35 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
         appearanceStyles.alignItems = 'center';
         appearanceStyles.justifyContent = 'center';
         appearanceStyles.display = 'flex';
-        
+
       case 'circular':
         appearanceStyles.boxShadow = shadow(3, 5, 1, 18, 2, 2);
         appearanceStyles.borderRadius = rem(BUTTON_HIGHT / 2);
         appearanceStyles['&:hover'] = { boxShadow: shadow(3, 5, 1, 18, 2, 2) };
         appearanceStyles['&:focus'] = { boxShadow: shadow(3, 5, 1, 18, 2, 2) };
-      
+
       default:
         break;
     }
- 
+
     return ({ appearance: css(appearanceStyles) });
     // return ({ appearanceStyles });
   }, [appearance]);
- 
+
   return isAvailable ? (
     <button
       {...pointerHandlers(handleClick)}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // css={{ ...customStyles.appearanceStyles }}
       // css={{ backgroundColor: 'red', fontsize: '26px' }}
-      className={cx(buttonStyles, customStyles.appearance, className )}
+      className={cx(buttonStyles, customStyles.appearance, className)}
       // className={classNames}
       disabled={disableButton}
       onAnimationEnd={onAnimationEnd}
       onMouseDown={onMouseDown}
       type={type}
     >
-      {icon && <Icon icon={icon}/>}
+      {icon && <Icon icon={icon} />}
       {label && <Text>{label}</Text>}
       {children}
     </button>

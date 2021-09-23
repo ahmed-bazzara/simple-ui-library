@@ -8,3 +8,4 @@ export * from './icon';
 export * from './kebabMenu';
 export * from './contextMenu';
 export * from './shape';
+export * from './draggable';
