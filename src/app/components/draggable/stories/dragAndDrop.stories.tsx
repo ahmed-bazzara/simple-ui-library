@@ -115,6 +115,7 @@ const Template: {
       acc[id] = {
         id,
         entityIds: entitiesArr[index],
+        title: id,
       };
 
       return acc;

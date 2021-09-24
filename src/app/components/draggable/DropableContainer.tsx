@@ -4,9 +4,12 @@ import { Droppable } from 'react-beautiful-dnd';
 import { COLOR } from 'app/constants';
 import { rem } from 'utilities';
 import { DragabbleEntity, DraggableEntity } from '.';
+import { Header } from 'app/components';
+import { css } from '@emotion/css';
 
 export interface DropableContainerProps {
   id: string;
+  title?: string;
   entities: DragabbleEntity[];
   entitiesDirection: 'vertical' | 'horizontal';
   containersDirection: 'vertical' | 'horizontal';
@@ -55,6 +58,7 @@ Pick<DropableContainerProps, 'entitiesDirection'> & {
 export const DropableContainer: React.FC<DropableContainerProps> = ({
   entities,
   id,
+  title = '',
   entitiesDirection,
   containersDirection,
   hasBorder,
@@ -72,6 +76,7 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
             isDraggingOver={snapshot.isDraggingOver}
             {...provided.droppableProps}
           >
+            <Header className={css({ padding: rem(0, 24) })} color="text" variant="H4">{title}</Header>
             {entities?.map(
               (entity, index) =>
                 entity && (

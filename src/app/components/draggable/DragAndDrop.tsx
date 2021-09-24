@@ -6,6 +6,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 export interface DraggableContainer {
   id: string;
   entityIds: string[];
+  title?: string;
 }
 
 export type DragAndDropData = Record<string, DragabbleEntity>;
@@ -110,7 +111,7 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
     <DragDropContext onDragEnd={handleDragEnd}>
       <StyledDragAndDrop containersDirection={containersDirection}>
         {Object.values(containers)?.map((container) => {
-          const { id, entityIds } = container;
+          const { id, entityIds, title } = container;
           const enititiesData = entityIds?.map((id) => data[id]);
 
           return (
@@ -119,6 +120,7 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
               containersDirection={containersDirection}
               entities={enititiesData}
               entitiesDirection={entitiesDirection}
+              title={title}
               id={id}
               hasBorder={hasBorder}
             />
