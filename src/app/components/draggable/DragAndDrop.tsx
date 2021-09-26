@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
-import { DragabbleEntity, DropableContainer } from 'app/components';
+import { DragabbleEntityType, DropableContainer } from 'app/components';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 export interface DraggableContainer {
@@ -9,7 +9,7 @@ export interface DraggableContainer {
   title?: string;
 }
 
-export type DragAndDropData = Record<string, DragabbleEntity>;
+export type DragAndDropData = Record<string, DragabbleEntityType>;
 export type DragAndDropContainer = Record<string, DraggableContainer>;
 
 export interface DragAndDropProps {
