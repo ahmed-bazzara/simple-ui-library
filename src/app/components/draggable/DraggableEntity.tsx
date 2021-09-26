@@ -4,13 +4,12 @@ import { Draggable } from 'react-beautiful-dnd';
 import { COLOR, ELEVATION } from 'app/constants';
 import { rem } from 'utilities';
 
-export interface DragabbleEntity {
+export interface DragabbleEntityType {
   id: string;
   content: JSX.Element;
 }
 
-interface DraggableEntityProps {
-  entity: DragabbleEntity;
+interface DraggableEntityProps extends DragabbleEntityType {
   order: number;
   entitiesDirection: 'vertical' | 'horizontal';
 }
@@ -47,25 +46,23 @@ Pick<DraggableEntityProps, 'entitiesDirection'> & { isDragging: boolean }
 }));
 
 export const DraggableEntity: React.FC<DraggableEntityProps> = ({
-  entity,
+  id,
+  content,
   order,
   entitiesDirection,
-}) => {
-  const { id, content } = entity;
+}) => (
+  <Draggable draggableId={id} index={order}>
+    {(provided, snapshot) => (
+      <EntityContainer
+        ref={provided.innerRef}
+        entitiesDirection={entitiesDirection}
+        isDragging={snapshot.isDragging}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+      >
+        {content}
+      </EntityContainer>
+    )}
+  </Draggable>
+);
 
-  return (
-    <Draggable draggableId={id} index={order}>
-      {(provided, snapshot) => (
-        <EntityContainer
-          ref={provided.innerRef}
-          entitiesDirection={entitiesDirection}
-          isDragging={snapshot.isDragging}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          {content}
-        </EntityContainer>
-      )}
-    </Draggable>
-  );
-};

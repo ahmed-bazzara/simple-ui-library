@@ -135,6 +135,5 @@ const StyledDragAndDrop = styled.div<
 Pick<DragAndDropProps, 'containersDirection'>
 >(({ containersDirection }) => ({
   display: 'flex',
-  width: 'max-content',
   flexDirection: containersDirection === 'vertical' ? 'column' : 'row',
 }));

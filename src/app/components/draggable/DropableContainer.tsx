@@ -3,14 +3,16 @@ import styled from '@emotion/styled';
 import { Droppable } from 'react-beautiful-dnd';
 import { COLOR } from 'app/constants';
 import { rem } from 'utilities';
-import { DragabbleEntity, DraggableEntity } from '.';
+import { DragabbleEntityType, DraggableEntity } from '.';
 import { Header } from 'app/components';
 import { css } from '@emotion/css';
 
-export interface DropableContainerProps {
+export interface DragabbleContainerType {
   id: string;
   title?: string;
-  entities: DragabbleEntity[];
+  entities: DragabbleEntityType[];
+}
+export interface DropableContainerProps extends DragabbleContainerType {
   entitiesDirection: 'vertical' | 'horizontal';
   containersDirection: 'vertical' | 'horizontal';
   hasBorder?: boolean;
@@ -82,9 +84,9 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
                 entity && (
                   <DraggableEntity
                     key={entity.id}
-                    entity={entity}
                     entitiesDirection={entitiesDirection}
                     order={index}
+                    {...entity}
                   />
                 ),
             )}

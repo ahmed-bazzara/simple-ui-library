@@ -48,10 +48,8 @@ module.exports = {
         exclude: /(node_modules)/,
         loader: "babel-loader",
         options: {
-          query: {
-            presets: ["@babel/react", "@babel/es2015"],
-            plugins: ["@babel/proposal-class-properties"],
-          },
+          presets: ["@babel/react", "@babel/es2015"],
+          plugins: ["@babel/proposal-class-properties"],
         },
       },
     ],
