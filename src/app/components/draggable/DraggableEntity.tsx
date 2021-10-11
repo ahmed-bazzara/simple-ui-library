@@ -1,23 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Draggable } from 'react-beautiful-dnd';
 import { COLOR, ELEVATION } from 'app/constants';
-import { rem } from 'utilities';
+import { pointerHandlers, rem } from 'utilities';
+import { Button, Header, Icon } from 'app/components';
+import { css } from '@emotion/css';
+import { Field, Form, Formik } from 'formik';
 
 export interface DragabbleEntityType {
   id: string;
-  content: JSX.Element;
+  content: string;
 }
 
 interface DraggableEntityProps extends DragabbleEntityType {
   order: number;
   entitiesDirection: 'vertical' | 'horizontal';
+  onEditContent?: (entityId: string, content: string) => void;
 }
 
 const EntityContainer = styled.div<
 Pick<DraggableEntityProps, 'entitiesDirection'> & { isDragging: boolean }
 >(({ entitiesDirection, isDragging }) => ({
   label: 'EntityContainer',
+  position: 'relative',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -43,6 +48,12 @@ Pick<DraggableEntityProps, 'entitiesDirection'> & { isDragging: boolean }
   ...(!!isDragging && {
     boxShadow: ELEVATION[6],
   }),
+
+  ':hover': {
+    '.edit-icon' : {
+      display: 'block',
+    },
+  },
 }));
 
 export const DraggableEntity: React.FC<DraggableEntityProps> = ({
@@ -50,19 +61,72 @@ export const DraggableEntity: React.FC<DraggableEntityProps> = ({
   content,
   order,
   entitiesDirection,
-}) => (
-  <Draggable draggableId={id} index={order}>
-    {(provided, snapshot) => (
-      <EntityContainer
-        ref={provided.innerRef}
-        entitiesDirection={entitiesDirection}
-        isDragging={snapshot.isDragging}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-      >
-        {content}
-      </EntityContainer>
-    )}
-  </Draggable>
-);
+  onEditContent,
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  return (
+    <Draggable draggableId={id} index={order}>
+      {(provided, snapshot) => {
+        console.log({ provided });
+        console.log({ snapshot });
+        
+        return (
+        <EntityContainer
+          ref={provided.innerRef}
+          entitiesDirection={entitiesDirection}
+          isDragging={snapshot.isDragging}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          {/* <Header onClick={() => onChangeTicketContent(id)} variant="H6"> */}
+          {isEditing ? (
+            <Formik
+            initialValues={{ content }}
+            onSubmit={(values, { setSubmitting }) => {
+              setTimeout(() => {
+                onEditContent?.(id, values.content);
+                setSubmitting(false);
+                setIsEditing(false);
+              }, 400);
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form className={css`width: 100%; display: flex; justify-content: center;`}>
+                <Field className={css`width: 100%;`} name="content" />
+                  <Button className={css`overflow:visible;`} isDisabled={isSubmitting} type="submit" appearance="link" size="SMALL">
+                    <Icon icon="CHECKMARK" size="SMALL" />
+                  </Button>
+              </Form>
+            )}
+          </Formik>
+          ) : (
+            <Header variant="H6">
+              {content}
+            </Header>
+          )}
+          {!isEditing && (
+            <StyledIconContainer className="edit-icon" {...pointerHandlers(() => setIsEditing(true))}>
+              <Icon icon="EDIT" size="SMALL" />
+            </StyledIconContainer>
+          )}
+          {/* <StyledIcon className={cx('edit-icon', css`color: ${COLOR.neutralGrey28}; display: none;`)} icon="EDIT" size="SMALL" /> */}
+        </EntityContainer>
+        );
+      }}
+    </Draggable>
+  );
+};
 
+const StyledIconContainer = styled.div<{ isEditing?: boolean }>(({ isEditing }) => ({
+  display: 'none',
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  padding: rem(8, 12),
+  color: COLOR.neutralGrey28,
+  cursor: 'pointer',
+  
+  ':active': {
+    color: isEditing ? COLOR.primary : COLOR.black,
+  },
+}));

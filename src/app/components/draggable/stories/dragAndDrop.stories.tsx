@@ -26,6 +26,7 @@ export default {
         type: 'array',
       },
     },
+
     containers: {
       control: {
         type: 'array',
@@ -51,6 +52,9 @@ export default {
     hasBorder: {
       control: 'boolean',
     },
+    canAddEntities: {
+      control: 'boolean',
+    },
   },
 };
 
@@ -69,6 +73,7 @@ const Template: {
     containersDirection,
     entitiesDirection,
     hasBorder,
+    canAddEntities,
   } = args;
   const [data, setData] = useState<DragAndDropData>({});
   const [containers, setDraggableContainers] = useState<DragAndDropContainer>(
@@ -89,11 +94,12 @@ const Template: {
     const data = userInsertedData?.reduce((acc, content, index) => {
       acc[content] = {
         id: content,
-        content: (
-          <Header color="secondary" variant="H5">
-            {mockTitle()}
-          </Header>
-        ),
+        content: mockTitle(),
+        // content: (
+        //   <Header color="secondary" variant="H5">
+        //     {mockTitle()}
+        //   </Header>
+        // ),
       };
 
       return acc;
@@ -126,15 +132,21 @@ const Template: {
   const handleMove = useCallback((containers: DragAndDropContainer) => {
     setDraggableContainers(containers);
   }, []);
+  
+  const saveData = useCallback((data: DragAndDropData) => {
+    setData(data);
+  }, []);
 
   return (
     <DragAndDrop
       containers={containers}
+      canAddEntities={canAddEntities}
       containersDirection={containersDirection}
       data={data}
       entitiesDirection={entitiesDirection}
       hasBorder={hasBorder}
-      onDragEnd={handleMove}
+      setContainers={handleMove}
+      setData={saveData}
     />
   );
 };

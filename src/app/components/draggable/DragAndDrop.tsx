@@ -14,20 +14,24 @@ export type DragAndDropContainer = Record<string, DraggableContainer>;
 
 export interface DragAndDropProps {
   data: DragAndDropData;
+  canAddEntities?: boolean;
   containers: DragAndDropContainer;
   containersDirection?: 'vertical' | 'horizontal';
   entitiesDirection?: 'vertical' | 'horizontal';
   hasBorder?: boolean;
-  onDragEnd: (containers: DragAndDropContainer) => void;
+  setContainers: (containers: DragAndDropContainer) => void;
+  setData: (data: DragAndDropData) => void;
 }
 
 export const DragAndDrop: React.FC<DragAndDropProps> = ({
   containers,
   data,
-  onDragEnd,
+  setContainers,
   containersDirection = 'vertical',
   entitiesDirection = 'horizontal',
   hasBorder,
+  canAddEntities,
+  setData,
 }) => {
   const handleDragInOneContainer = useCallback(
     (result: DropResult, container: DraggableContainer) => {
@@ -46,9 +50,9 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
         },
       };
 
-      onDragEnd(newContainers);
+      setContainers(newContainers);
     },
-    [containers, onDragEnd],
+    [containers, setContainers],
   );
 
   const handleDragInMutipleContainers = useCallback(
@@ -80,9 +84,9 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
         [newFinishContainer.id]: newFinishContainer,
       };
 
-      onDragEnd(newContainers);
+      setContainers(newContainers);
     },
-    [containers, onDragEnd],
+    [containers, setContainers],
   );
 
   const handleDragEnd = useCallback(
@@ -107,6 +111,41 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
     [containers, handleDragInMutipleContainers, handleDragInOneContainer],
   );
 
+  const handleAddButtonClick = (containerId: string) => {
+    const newEntityId = new Date().getTime().toString();
+    const newContainers = {
+      ...containers,
+      [containerId]: {
+        ...containers[containerId],
+        entityIds: [newEntityId, ...containers[containerId].entityIds],
+      },
+    };
+
+    const newData = {
+      ...data,
+      [newEntityId]: {
+        id: newEntityId,
+        content: '',
+      },
+    };
+    setContainers(newContainers);
+    setData(newData);
+  };
+
+  const handleEditContent = (entityId: string, content: string) => {
+    const newEntities = {
+      ...data,
+      [entityId]: {
+        id: entityId,
+        content,
+      },
+    };
+
+    setData(newEntities);
+  };
+
+  console.log(containers);
+  
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <StyledDragAndDrop containersDirection={containersDirection}>
@@ -117,12 +156,15 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
           return (
             <DropableContainer
               key={id}
+              canAddEntities={canAddEntities}
               containersDirection={containersDirection}
               entities={enititiesData}
               entitiesDirection={entitiesDirection}
               title={title}
               id={id}
               hasBorder={hasBorder}
+              onAddButtonClick={handleAddButtonClick}
+              onEditContent={handleEditContent}
             />
           );
         })}

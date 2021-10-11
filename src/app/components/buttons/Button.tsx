@@ -3,20 +3,24 @@
 import React, { useMemo } from 'react';
 import { pointerHandlers, rem, shadow, transition } from 'utilities';
 // import classnames from 'classnames';
-import { Theme, THEMES, APPEARANCES, AppearanceType, COLOR } from 'app/constants';
+import { Theme, THEMES, APPEARANCES, AppearanceType, COLOR, ValueOf } from 'app/constants';
 import { Text, Icon, IconName } from 'app/components';
 // import styled from '@emotion/styled';
 import { cx, css, CSSInterpolation } from '@emotion/css';
 
-const BUTTON_HIGHT = 56;
-
+const BUTTON_HEIGHT = {
+  NORMAL: 56,
+  SMALL: 32,
+  TINY: 18,
+};
+type ButtonHieght = keyof typeof BUTTON_HEIGHT;
 // const StyledButton = styled.button({
 const buttonStyles = css`
   transition: ${transition('background-color')};
   box-shadow: ${shadow(1, 3, 2, 1, 1, 1)};
   cursor: pointer;
   display: block;
-  height: ${rem(BUTTON_HIGHT)};
+  height: ${rem(BUTTON_HEIGHT.NORMAL)};
   max-width: 100%;
   font-size: ${rem(18)};
   padding: ${rem(0, 26)};
@@ -27,7 +31,7 @@ const buttonStyles = css`
   background-color: ${COLOR.primary};
   fill: ${COLOR.neutralWhite};
   border: none;
-  border-radius: ${rem(8)};
+  border-radius: ${rem(4)};
   outline: none;
   touch-action: manipulation;
   
@@ -57,15 +61,8 @@ export interface ButtonProps {
   onConfirm?(): boolean;
   theme?: Theme;
   validate?(): boolean;
+  size?: ButtonHieght;
 }
-
-const defaultProps = {
-  appearance: APPEARANCES.REGULAR,
-  isAvailable: true,
-  theme: THEMES.PRIMARY,
-  isDisabled: false,
-  label: '',
-};
 
 const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
   // const {
@@ -87,6 +84,7 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
     onConfirm,
     // theme = 'primary',
     validate,
+    size = 'NORMAL',
   } = props;
 
   const disableButton = isDisabled;
@@ -122,6 +120,8 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
     // const appearanceStyles = '';
     // const appearanceStyles = {};
     const appearanceStyles: CSSInterpolation = {};
+    console.log(appearance);
+    
     switch (appearance) {
       case 'link':
       case 'link-small':
@@ -135,15 +135,21 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
 
       case 'circular':
       case 'square':
-        appearanceStyles.width = rem(BUTTON_HIGHT);
+        appearanceStyles.width = rem(BUTTON_HEIGHT[size]);
         appearanceStyles.padding = 0;
         appearanceStyles.alignItems = 'center';
         appearanceStyles.justifyContent = 'center';
         appearanceStyles.display = 'flex';
+        break;
 
       case 'circular':
+        appearanceStyles.width = rem(BUTTON_HEIGHT[size]);
+        appearanceStyles.padding = 0;
+        appearanceStyles.alignItems = 'center';
+        appearanceStyles.justifyContent = 'center';
+        appearanceStyles.display = 'flex';
         appearanceStyles.boxShadow = shadow(3, 5, 1, 18, 2, 2);
-        appearanceStyles.borderRadius = rem(BUTTON_HIGHT / 2);
+        appearanceStyles.borderRadius = rem(BUTTON_HEIGHT[size] / 2);
         appearanceStyles['&:hover'] = { boxShadow: shadow(3, 5, 1, 18, 2, 2) };
         appearanceStyles['&:focus'] = { boxShadow: shadow(3, 5, 1, 18, 2, 2) };
 
@@ -151,9 +157,11 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
         break;
     }
 
+    console.log(appearanceStyles);
+    
     return ({ appearance: css(appearanceStyles) });
     // return ({ appearanceStyles });
-  }, [appearance]);
+  }, [appearance, size]);
 
   return isAvailable ? (
     <button
@@ -161,7 +169,7 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // css={{ ...customStyles.appearanceStyles }}
       // css={{ backgroundColor: 'red', fontsize: '26px' }}
-      className={cx(buttonStyles, customStyles.appearance, className)}
+      className={cx(buttonStyles, customStyles.appearance, className, css`height: ${rem(BUTTON_HEIGHT[size])}`)}
       // className={classNames}
       disabled={disableButton}
       onAnimationEnd={onAnimationEnd}

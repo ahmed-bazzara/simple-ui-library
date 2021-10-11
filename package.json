@@ -17,6 +17,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "classnames": "^2.3.1",
+    "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
@@ -42,7 +43,7 @@
     "format": "prettier --write src/**/*.{ts,tsx,js,jsx,scss,css,json}",
     "clean": "rm -rf ./dist",
     "prebuild": "yarn clean",
-    "build": "webpack --mode production"
+    "build": "tsc build"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

@@ -4,7 +4,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import { COLOR } from 'app/constants';
 import { rem } from 'utilities';
 import { DragabbleEntityType, DraggableEntity } from '.';
-import { Header } from 'app/components';
+import { Button, Header } from 'app/components';
 import { css } from '@emotion/css';
 
 export interface DragabbleContainerType {
@@ -16,6 +16,9 @@ export interface DropableContainerProps extends DragabbleContainerType {
   entitiesDirection: 'vertical' | 'horizontal';
   containersDirection: 'vertical' | 'horizontal';
   hasBorder?: boolean;
+  canAddEntities?: boolean;
+  onEditContent?: (entityId: string, content: string) => void;
+  onAddButtonClick: (containerId: string) => void;
 }
 
 const StyledDropableContainer = styled.div<
@@ -41,6 +44,13 @@ Pick<DropableContainerProps, 'containersDirection'> & { hasBorder?: boolean }
   }),
 }));
 
+const HeaderContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems:'center',
+  padding: rem(0, 24),
+});
+
 const EntitiesContainer = styled.div<
 Pick<DropableContainerProps, 'entitiesDirection'> & {
   isDraggingOver: boolean;
@@ -64,7 +74,11 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
   entitiesDirection,
   containersDirection,
   hasBorder,
+  canAddEntities,
+  onAddButtonClick,
+  onEditContent,
 }) => {
+
   return (
     <StyledDropableContainer
       containersDirection={containersDirection}
@@ -78,7 +92,12 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
             isDraggingOver={snapshot.isDraggingOver}
             {...provided.droppableProps}
           >
-            <Header className={css({ padding: rem(0, 24) })} color="text" variant="H4">{title}</Header>
+            <HeaderContainer>
+              <Header className={css({ padding: rem(0, 24) })} color="text" variant="H4">{title}</Header>
+              {canAddEntities && (
+                <Button appearance="square" onClick={() => onAddButtonClick(id)} size="TINY" theme="neutral">+</Button>
+              )}
+            </HeaderContainer>
             {entities?.map(
               (entity, index) =>
                 entity && (
@@ -86,6 +105,7 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
                     key={entity.id}
                     entitiesDirection={entitiesDirection}
                     order={index}
+                    onEditContent={onEditContent}
                     {...entity}
                   />
                 ),
