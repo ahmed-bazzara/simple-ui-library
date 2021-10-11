@@ -43,7 +43,8 @@
     "format": "prettier --write src/**/*.{ts,tsx,js,jsx,scss,css,json}",
     "clean": "rm -rf ./dist",
     "prebuild": "yarn clean",
-    "build": "tsc build"
+    "build": "tsc build",
+    "publishpackage": "yarn run webpack && npm publish"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
