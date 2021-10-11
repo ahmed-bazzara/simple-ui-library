@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Draggable } from 'react-beautiful-dnd';
 import { COLOR, ELEVATION } from 'app/constants';
@@ -10,12 +10,14 @@ import { Field, Form, Formik } from 'formik';
 export interface DragabbleEntityType {
   id: string;
   content: string;
+  isEditing?: boolean;
 }
 
 interface DraggableEntityProps extends DragabbleEntityType {
   order: number;
   entitiesDirection: 'vertical' | 'horizontal';
   onEditContent?: (entityId: string, content: string) => void;
+  onSetConetntEditing?: (entityId: string, isEdting?: boolean) => void;
 }
 
 const EntityContainer = styled.div<
@@ -62,14 +64,13 @@ export const DraggableEntity: React.FC<DraggableEntityProps> = ({
   order,
   entitiesDirection,
   onEditContent,
+  isEditing,
+  onSetConetntEditing,
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false);
   return (
     <Draggable draggableId={id} index={order}>
       {(provided, snapshot) => {
-        console.log({ provided });
-        console.log({ snapshot });
-        
         return (
         <EntityContainer
           ref={provided.innerRef}
@@ -86,16 +87,21 @@ export const DraggableEntity: React.FC<DraggableEntityProps> = ({
               setTimeout(() => {
                 onEditContent?.(id, values.content);
                 setSubmitting(false);
-                setIsEditing(false);
               }, 400);
             }}
           >
             {({ isSubmitting }) => (
               <Form className={css`width: 100%; display: flex; justify-content: center;`}>
                 <Field className={css`width: 100%;`} name="content" />
-                  <Button className={css`overflow:visible;`} isDisabled={isSubmitting} type="submit" appearance="link" size="SMALL">
-                    <Icon icon="CHECKMARK" size="SMALL" />
-                  </Button>
+                <Button
+                  appearance="link"
+                  className={css`overflow:visible;`}
+                  isDisabled={isSubmitting}
+                  size="SMALL"
+                  type="submit"
+                >
+                  <Icon icon="CHECKMARK" size="SMALL" />
+                </Button>
               </Form>
             )}
           </Formik>
@@ -105,7 +111,7 @@ export const DraggableEntity: React.FC<DraggableEntityProps> = ({
             </Header>
           )}
           {!isEditing && (
-            <StyledIconContainer className="edit-icon" {...pointerHandlers(() => setIsEditing(true))}>
+            <StyledIconContainer className="edit-icon" {...pointerHandlers(() => onSetConetntEditing?.(id))}>
               <Icon icon="EDIT" size="SMALL" />
             </StyledIconContainer>
           )}

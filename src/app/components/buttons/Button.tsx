@@ -2,10 +2,8 @@
 /* eslint-disable no-duplicate-case */
 import React, { useMemo } from 'react';
 import { pointerHandlers, rem, shadow, transition } from 'utilities';
-// import classnames from 'classnames';
-import { Theme, THEMES, APPEARANCES, AppearanceType, COLOR, ValueOf } from 'app/constants';
+import { Theme, AppearanceType, COLOR } from 'app/constants';
 import { Text, Icon, IconName } from 'app/components';
-// import styled from '@emotion/styled';
 import { cx, css, CSSInterpolation } from '@emotion/css';
 
 const BUTTON_HEIGHT = {
@@ -120,7 +118,6 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
     // const appearanceStyles = '';
     // const appearanceStyles = {};
     const appearanceStyles: CSSInterpolation = {};
-    console.log(appearance);
     
     switch (appearance) {
       case 'link':
@@ -157,8 +154,6 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
         break;
     }
 
-    console.log(appearanceStyles);
-    
     return ({ appearance: css(appearanceStyles) });
     // return ({ appearanceStyles });
   }, [appearance, size]);

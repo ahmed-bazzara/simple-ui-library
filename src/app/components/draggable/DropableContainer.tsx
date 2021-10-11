@@ -18,6 +18,7 @@ export interface DropableContainerProps extends DragabbleContainerType {
   hasBorder?: boolean;
   canAddEntities?: boolean;
   onEditContent?: (entityId: string, content: string) => void;
+  onSetConetntEditing?: (entityId: string, isEdting?: boolean) => void;
   onAddButtonClick: (containerId: string) => void;
 }
 
@@ -77,8 +78,8 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
   canAddEntities,
   onAddButtonClick,
   onEditContent,
+  onSetConetntEditing,
 }) => {
-
   return (
     <StyledDropableContainer
       containersDirection={containersDirection}
@@ -106,6 +107,7 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
                     entitiesDirection={entitiesDirection}
                     order={index}
                     onEditContent={onEditContent}
+                    onSetConetntEditing={onSetConetntEditing}
                     {...entity}
                   />
                 ),

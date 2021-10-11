@@ -37,7 +37,7 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
     (result: DropResult, container: DraggableContainer) => {
       const { destination, source, draggableId } = result;
       if (!destination) return;
-
+      
       const newEntityIds = Array.from(container?.entityIds);
       newEntityIds.splice(source.index, 1);
       newEntityIds.splice(destination.index, 0, draggableId);
@@ -126,10 +126,24 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
       [newEntityId]: {
         id: newEntityId,
         content: '',
+        isEditing: true,
       },
     };
+
     setContainers(newContainers);
     setData(newData);
+  };
+
+  const handleSetContentAsIsEditing = (entityId: string, isEditing = true) => {
+    const newEntities = {
+      ...data,
+      [entityId]: {
+        ...data[entityId],
+        isEditing,
+      },
+    };
+
+    setData(newEntities);
   };
 
   const handleEditContent = (entityId: string, content: string) => {
@@ -138,14 +152,13 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
       [entityId]: {
         id: entityId,
         content,
+        isEditing: false,
       },
     };
 
     setData(newEntities);
   };
 
-  console.log(containers);
-  
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <StyledDragAndDrop containersDirection={containersDirection}>
@@ -165,6 +178,7 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
               hasBorder={hasBorder}
               onAddButtonClick={handleAddButtonClick}
               onEditContent={handleEditContent}
+              onSetConetntEditing={handleSetContentAsIsEditing}
             />
           );
         })}
