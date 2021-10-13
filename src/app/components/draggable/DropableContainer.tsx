@@ -4,7 +4,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import { COLOR } from 'app/constants';
 import { rem } from 'utilities';
 import { DragabbleEntityType, DraggableEntity } from '.';
-import { Button, Header } from 'app/components';
+import { Button, Header, Icon } from 'app/components';
 import { css } from '@emotion/css';
 
 export interface DragabbleContainerType {
@@ -16,10 +16,11 @@ export interface DropableContainerProps extends DragabbleContainerType {
   entitiesDirection: 'vertical' | 'horizontal';
   containersDirection: 'vertical' | 'horizontal';
   hasBorder?: boolean;
-  canAddEntities?: boolean;
-  onEditContent?: (entityId: string, content: string) => void;
-  onSetConetntEditing?: (entityId: string, isEdting?: boolean) => void;
+  editEntityId?: string;
+  onEditContentDone?: (entityId: string, content: string) => void;
+  setEditingEntityId: (entityId?: string) => void;
   onAddButtonClick: (containerId: string) => void;
+  onRemove?: () => void;
 }
 
 const StyledDropableContainer = styled.div<
@@ -49,7 +50,7 @@ const HeaderContainer = styled.div({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems:'center',
-  padding: rem(0, 24),
+  padding: rem(0, 4),
 });
 
 const EntitiesContainer = styled.div<
@@ -75,10 +76,11 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
   entitiesDirection,
   containersDirection,
   hasBorder,
-  canAddEntities,
+  editEntityId,
   onAddButtonClick,
-  onEditContent,
-  onSetConetntEditing,
+  onEditContentDone,
+  setEditingEntityId,
+  onRemove,
 }) => {
   return (
     <StyledDropableContainer
@@ -94,9 +96,25 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
             {...provided.droppableProps}
           >
             <HeaderContainer>
-              <Header className={css({ padding: rem(0, 24) })} color="text" variant="H4">{title}</Header>
-              {canAddEntities && (
-                <Button appearance="square" onClick={() => onAddButtonClick(id)} size="TINY" theme="neutral">+</Button>
+              {!!onAddButtonClick && (
+                <Button
+                  appearance="square"
+                  className={css({ marginRight: rem(8) })}
+                  isDisabled={!!editEntityId}
+                  onClick={() => onAddButtonClick(id)}
+                  size="TINY"
+                  theme="neutral"
+                >
+                  <Icon icon="PLUS" size="SMALL" />
+                </Button>
+              )}
+              <div className={css({ flex: '1' })}>
+                <Header className={css({ padding: rem(0, 8) })} color="text" variant="H4">{title}</Header>
+              </div>
+              {!!onRemove && (
+                <Button appearance="square" onClick={() => onRemove()} size="TINY" theme="neutral">
+                  <Icon icon="DELETE" size="SMALL" />
+                </Button>
               )}
             </HeaderContainer>
             {entities?.map(
@@ -105,9 +123,10 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
                   <DraggableEntity
                     key={entity.id}
                     entitiesDirection={entitiesDirection}
+                    editEntityId={editEntityId}
                     order={index}
-                    onEditContent={onEditContent}
-                    onSetConetntEditing={onSetConetntEditing}
+                    onEditContentDone={onEditContentDone}
+                    setEditingEntityId={setEditingEntityId}
                     {...entity}
                   />
                 ),

@@ -10,14 +10,14 @@ import { Field, Form, Formik } from 'formik';
 export interface DragabbleEntityType {
   id: string;
   content: string;
-  isEditing?: boolean;
 }
 
 interface DraggableEntityProps extends DragabbleEntityType {
   order: number;
   entitiesDirection: 'vertical' | 'horizontal';
-  onEditContent?: (entityId: string, content: string) => void;
-  onSetConetntEditing?: (entityId: string, isEdting?: boolean) => void;
+  editEntityId?: string;
+  onEditContentDone?: (entityId: string, content: string) => void;
+  setEditingEntityId: (entityId?: string) => void;
 }
 
 const EntityContainer = styled.div<
@@ -53,7 +53,7 @@ Pick<DraggableEntityProps, 'entitiesDirection'> & { isDragging: boolean }
 
   ':hover': {
     '.edit-icon' : {
-      display: 'block',
+      display: 'flex',
     },
   },
 }));
@@ -63,11 +63,12 @@ export const DraggableEntity: React.FC<DraggableEntityProps> = ({
   content,
   order,
   entitiesDirection,
-  onEditContent,
-  isEditing,
-  onSetConetntEditing,
+  editEntityId,
+  onEditContentDone,
+  setEditingEntityId,
 }) => {
-  // const [isEditing, setIsEditing] = useState(false);
+  const isEditing = id === editEntityId;
+
   return (
     <Draggable draggableId={id} index={order}>
       {(provided, snapshot) => {
@@ -79,20 +80,29 @@ export const DraggableEntity: React.FC<DraggableEntityProps> = ({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {/* <Header onClick={() => onChangeTicketContent(id)} variant="H6"> */}
           {isEditing ? (
             <Formik
             initialValues={{ content }}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
-                onEditContent?.(id, values.content);
+                onEditContentDone?.(id, values.content);
                 setSubmitting(false);
               }, 400);
             }}
           >
             {({ isSubmitting }) => (
               <Form className={css`width: 100%; display: flex; justify-content: center;`}>
-                <Field className={css`width: 100%;`} name="content" />
+                <Field
+                  className={css({
+                    width: '100%',
+                    fontFamily: 'Open Sans',
+                    wordBreak: 'break-word',
+                    overflowWrap: 'break-word',
+                    fontWeight: 600,
+                    color: COLOR.secondary,
+                  })}
+                  name="content"
+                />
                 <Button
                   appearance="link"
                   className={css`overflow:visible;`}
@@ -111,11 +121,10 @@ export const DraggableEntity: React.FC<DraggableEntityProps> = ({
             </Header>
           )}
           {!isEditing && (
-            <StyledIconContainer className="edit-icon" {...pointerHandlers(() => onSetConetntEditing?.(id))}>
+            <StyledIconContainer className="edit-icon" {...pointerHandlers(() => setEditingEntityId?.(id))}>
               <Icon icon="EDIT" size="SMALL" />
             </StyledIconContainer>
           )}
-          {/* <StyledIcon className={cx('edit-icon', css`color: ${COLOR.neutralGrey28}; display: none;`)} icon="EDIT" size="SMALL" /> */}
         </EntityContainer>
         );
       }}
@@ -128,9 +137,11 @@ const StyledIconContainer = styled.div<{ isEditing?: boolean }>(({ isEditing }) 
   position: 'absolute',
   top: 0,
   right: 0,
+  bottom: 0,
   padding: rem(8, 12),
   color: COLOR.neutralGrey28,
   cursor: 'pointer',
+  alignItems: 'center',
   
   ':active': {
     color: isEditing ? COLOR.primary : COLOR.black,

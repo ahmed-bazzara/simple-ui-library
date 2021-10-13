@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { DragabbleEntityType, DropableContainer } from 'app/components';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { COLOR } from 'app/constants';
 
 export interface DraggableContainer {
   id: string;
@@ -14,25 +15,26 @@ export type DragAndDropContainer = Record<string, DraggableContainer>;
 
 export interface DragAndDropProps {
   data: DragAndDropData;
-  canAddEntities?: boolean;
   containers: DragAndDropContainer;
   containersDirection?: 'vertical' | 'horizontal';
   entitiesDirection?: 'vertical' | 'horizontal';
   hasBorder?: boolean;
   setContainers: (containers: DragAndDropContainer) => void;
   setData: (data: DragAndDropData) => void;
+  onRemove?: () => void;
 }
 
 export const DragAndDrop: React.FC<DragAndDropProps> = ({
   containers,
   data,
-  setContainers,
   containersDirection = 'vertical',
   entitiesDirection = 'horizontal',
   hasBorder,
-  canAddEntities,
+  setContainers,
   setData,
+  onRemove,
 }) => {
+  const [editEntityId, setEditingEntityId] = useState<string>();
   const handleDragInOneContainer = useCallback(
     (result: DropResult, container: DraggableContainer) => {
       const { destination, source, draggableId } = result;
@@ -126,27 +128,15 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
       [newEntityId]: {
         id: newEntityId,
         content: '',
-        isEditing: true,
       },
     };
 
+    setEditingEntityId(newEntityId);
     setContainers(newContainers);
     setData(newData);
   };
 
-  const handleSetContentAsIsEditing = (entityId: string, isEditing = true) => {
-    const newEntities = {
-      ...data,
-      [entityId]: {
-        ...data[entityId],
-        isEditing,
-      },
-    };
-
-    setData(newEntities);
-  };
-
-  const handleEditContent = (entityId: string, content: string) => {
+  const handleEditContentDone = (entityId: string, content: string) => {
     const newEntities = {
       ...data,
       [entityId]: {
@@ -156,6 +146,7 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
       },
     };
 
+    setEditingEntityId(undefined);
     setData(newEntities);
   };
 
@@ -169,16 +160,17 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
           return (
             <DropableContainer
               key={id}
-              canAddEntities={canAddEntities}
               containersDirection={containersDirection}
               entities={enititiesData}
               entitiesDirection={entitiesDirection}
+              editEntityId={editEntityId}
               title={title}
               id={id}
               hasBorder={hasBorder}
               onAddButtonClick={handleAddButtonClick}
-              onEditContent={handleEditContent}
-              onSetConetntEditing={handleSetContentAsIsEditing}
+              onEditContentDone={handleEditContentDone}
+              setEditingEntityId={id => setEditingEntityId(id)}
+              onRemove={onRemove}
             />
           );
         })}
@@ -192,4 +184,5 @@ Pick<DragAndDropProps, 'containersDirection'>
 >(({ containersDirection }) => ({
   display: 'flex',
   flexDirection: containersDirection === 'vertical' ? 'column' : 'row',
+  backgroundColor: COLOR.neutralWhite,
 }));

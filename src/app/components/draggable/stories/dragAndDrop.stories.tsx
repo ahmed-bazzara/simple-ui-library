@@ -145,6 +145,7 @@ const Template: {
       data={data}
       entitiesDirection={entitiesDirection}
       hasBorder={hasBorder}
+      onRemove={() => {}}
       setContainers={handleMove}
       setData={saveData}
     />
