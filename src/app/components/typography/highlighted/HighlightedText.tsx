@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Text, TextProps } from 'app/components';
-import { generateId } from 'utilities';
+import { generateUniqueId } from 'utilities';
 
 export interface HighlightedTextProps extends Omit<TextProps, 'children'> {
   className?: string;
@@ -29,7 +29,7 @@ const HighlightedText: React.FC<HighlightedTextProps> = (props): JSX.Element => 
       <>
         {slices.map((slice) =>
           slice.match(pattern) ? (
-            <Text key={generateId()} {...textProps}>
+            <Text key={generateUniqueId()} {...textProps}>
               {slice}
             </Text>
           ) : (
