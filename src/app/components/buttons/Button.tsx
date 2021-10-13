@@ -1,8 +1,6 @@
-/* eslint-disable no-fallthrough */
-/* eslint-disable no-duplicate-case */
 import React, { useMemo } from 'react';
 import { pointerHandlers, rem, shadow, transition } from 'utilities';
-import { Theme, AppearanceType, COLOR } from 'app/constants';
+import { Theme, AppearanceType, COLOR, THEMES } from 'app/constants';
 import { Text, Icon, IconName } from 'app/components';
 import { cx, css, CSSInterpolation } from '@emotion/css';
 
@@ -12,35 +10,42 @@ const BUTTON_HEIGHT = {
   TINY: 18,
 };
 type ButtonHieght = keyof typeof BUTTON_HEIGHT;
-// const StyledButton = styled.button({
-const buttonStyles = css`
-  transition: ${transition('background-color')};
-  box-shadow: ${shadow(1, 3, 2, 1, 1, 1)};
-  cursor: pointer;
-  display: block;
-  height: ${rem(BUTTON_HEIGHT.NORMAL)};
-  max-width: 100%;
-  font-size: ${rem(18)};
-  padding: ${rem(0, 26)};
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  background: none;
-  background-color: ${COLOR.primary};
-  fill: ${COLOR.neutralWhite};
-  border: none;
-  border-radius: ${rem(4)};
-  outline: none;
-  touch-action: manipulation;
+const buttonStyles = css({
+  transition: transition('background-color'),
+  boxShadow: shadow(1, 3, 2, 1, 1, 1),
+  cursor: 'pointer',
+  display: 'block',
+  height: rem(BUTTON_HEIGHT.NORMAL),
+  maxWidth: '100%',
+  fontSize: rem(18),
+  padding: rem(0, 26),
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  background: 'none',
+  backgroundColor: COLOR.primary,
+  fill: COLOR.neutralWhite,
+  border: 'none',
+  borderRadius: rem(4),
+  outline: 'none',
+  touchAction: 'manipulation',
   
-  &:hover {
-    box-shadow: ${shadow(1, 5, 3, 1, 2, 2)};
-  };
-  &:focus {
-    box-shadow: ${shadow(1, 5, 3, 1, 2, 2)};
-  };
-  /* :active { box-shadow: 'none' }; */
-`;
+  'hover': {
+    boxShadow: shadow(1, 5, 3, 1, 2, 2),
+  },
+  'focus': {
+    boxShadow: shadow(1, 5, 3, 1, 2, 2),
+  },
+});
+
+const disabledStyles = css({
+  backgroundColor: COLOR.text10,
+  border: 'none',
+  boxShadow: 'none',
+  ':hover': { backgroundColor: COLOR.text10 },
+  ':active': { backgroundColor: COLOR.text10 },
+});
+
 
 export interface ButtonProps {
   appearance?: AppearanceType;
@@ -63,10 +68,6 @@ export interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
-  // const {
-  //   internalValidationResults,
-  //   disableSubmitOnValidationError,
-  // } = useContext(FormContext);
   const {
     appearance = 'regular',
     className,
@@ -80,24 +81,12 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
     onMouseDown,
     onClick: clickHandler,
     onConfirm,
-    // theme = 'primary',
+    theme = 'primary',
     validate,
     size = 'NORMAL',
   } = props;
 
   const disableButton = isDisabled;
-  // const isSubmitButton = type === 'submit';
-  // const disableButton = isDisabled
-  //   || (Object.values(internalValidationResults).some((result) => result.hasError())
-  //     && disableSubmitOnValidationError
-  //     && isSubmitButton);
-  // const classNames = classnames('cmn-button', className, appearance, {
-  //   disabled: disableButton,
-  //   'with-icon': icon,
-  //   [theme]:
-  //     appearance !== APPEARANCES.LINK && appearance !== APPEARANCES.LINK_SMALL,
-  // });
-
   const handleClick = (
     event:
     | React.MouseEvent<HTMLButtonElement>
@@ -114,65 +103,90 @@ const Button: React.FC<ButtonProps> = (props): JSX.Element | null => {
     clickHandler?.(event);
   };
 
-  const customStyles = useMemo(() => {
+  const appearanceStyles = useMemo(() => {
     // const appearanceStyles = '';
     // const appearanceStyles = {};
-    const appearanceStyles: CSSInterpolation = {};
-    
-    switch (appearance) {
-      case 'link':
-      case 'link-small':
-        appearanceStyles.border = 'none';
-        appearanceStyles.boxShadow = 'none';
-        appearanceStyles['&:hover'] = { backgroundColor: `transparentize(${COLOR.primary}, 0.2)` };
-        appearanceStyles[':not(.disabled):active'] = { backgroundColor: COLOR.primary };
-        appearanceStyles.paddingLeft = rem(8);
-        appearanceStyles.paddingRight = rem(8);
-        break;
+    const linkApearance: CSSInterpolation = {
+      border: 'none',
+      boxShadow: 'none',
+      paddingLeft: rem(8),
+      paddingRight: rem(8),
+      '&:hover': { backgroundColor: `transparentize(${COLOR.primary}, 0.2)` },
+      ':not(.disabled):active': { backgroundColor: COLOR.primary },
+    };
 
-      case 'circular':
-      case 'square':
-        appearanceStyles.width = rem(BUTTON_HEIGHT[size]);
-        appearanceStyles.padding = 0;
-        appearanceStyles.alignItems = 'center';
-        appearanceStyles.justifyContent = 'center';
-        appearanceStyles.display = 'flex';
-        break;
+    const circleOrSquarAppearance: CSSInterpolation = {
+      width: rem(BUTTON_HEIGHT[size]),
+      padding: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      display: 'flex',
+    };
 
-      case 'circular':
-        appearanceStyles.width = rem(BUTTON_HEIGHT[size]);
-        appearanceStyles.padding = 0;
-        appearanceStyles.alignItems = 'center';
-        appearanceStyles.justifyContent = 'center';
-        appearanceStyles.display = 'flex';
-        appearanceStyles.boxShadow = shadow(3, 5, 1, 18, 2, 2);
-        appearanceStyles.borderRadius = rem(BUTTON_HEIGHT[size] / 2);
-        appearanceStyles['&:hover'] = { boxShadow: shadow(3, 5, 1, 18, 2, 2) };
-        appearanceStyles['&:focus'] = { boxShadow: shadow(3, 5, 1, 18, 2, 2) };
+    const circleAppearance: CSSInterpolation = {
+      width: rem(BUTTON_HEIGHT[size]),
+      padding: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      display: 'flex',
+      boxShadow: shadow(3, 5, 1, 18, 2, 2),
+      borderRadius: rem(BUTTON_HEIGHT[size] / 2),
+      '&:hover': { boxShadow: shadow(3, 5, 1, 18, 2, 2) },
+      '&:focus': { boxShadow: shadow(3, 5, 1, 18, 2, 2) },
+    };
 
-      default:
-        break;
-    }
-
-    return ({ appearance: css(appearanceStyles) });
-    // return ({ appearanceStyles });
+    return css({
+      ...((appearance === 'link' || appearance === 'link-small') ? linkApearance : {}),
+      ...((appearance === 'circular' || appearance === 'square') ? circleOrSquarAppearance : {}),
+      ...((appearance === 'circular') ? { ...circleOrSquarAppearance, ...circleAppearance } : {}),
+    });
   }, [appearance, size]);
 
+
+  const themeStyles = useMemo(() => {
+    const themes = {
+      [THEMES.PRIMARY]: {
+        backgroundColor: COLOR.primary,
+        ':hover': { opacity: 0.8 },
+      },
+      [THEMES.SECONDARY]: {
+        backgroundColor: COLOR.neutralGrey5,
+        border: `thin solid ${COLOR.neutralGrey28}`,
+        ':hover' : { borderColor: COLOR.primary24 },
+        ':active' : {
+          borderColor: COLOR.primary,
+          backgroundColor: COLOR.primary24,
+        },
+      },
+      [THEMES.NEGATIVE]: {
+        backgroundColor: COLOR.negative,
+        ':hover': { opacity: 0.8 },
+        ':active' : { backgroundColor: COLOR.negative },
+      },
+    };
+
+    return css(themes[theme]);
+  }, [theme]);
+
+  const classNames = cx(
+    buttonStyles,
+    appearanceStyles, 
+    themeStyles,
+    css({ height: rem(BUTTON_HEIGHT[size]) }),
+    isDisabled && disabledStyles,
+    className,
+  );
   return isAvailable ? (
     <button
       {...pointerHandlers(handleClick)}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // css={{ ...customStyles.appearanceStyles }}
-      // css={{ backgroundColor: 'red', fontsize: '26px' }}
-      className={cx(buttonStyles, customStyles.appearance, className, css`height: ${rem(BUTTON_HEIGHT[size])}`)}
-      // className={classNames}
+      className={classNames}
       disabled={disableButton}
       onAnimationEnd={onAnimationEnd}
       onMouseDown={onMouseDown}
       type={type}
     >
       {icon && <Icon icon={icon} />}
-      {label && <Text>{label}</Text>}
+      {label && <Text className={css({ opacity: isDisabled ? 0.64 : 1 })}>{label}</Text>}
       {children}
     </button>
   ) : null;
