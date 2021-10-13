@@ -107,7 +107,7 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
                   isDisabled={!!editEntityId}
                   onClick={() => onAddButtonClick(id)}
                   size="TINY"
-                  theme="neutral"
+                  theme="secondary"
                 >
                   <Icon icon="PLUS" size="SMALL" />
                 </Button>
@@ -116,7 +116,7 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
                 <Header className={css({ padding: rem(0, 8) })} color="text" variant="H4">{title}</Header>
               </div>
               {!!onRemove && (
-                <Button appearance="square" onClick={() => onRemove()} size="TINY" theme="neutral">
+                <Button appearance="square" onClick={() => onRemove()} size="TINY" theme="secondary">
                   <Icon icon="DELETE" size="SMALL" />
                 </Button>
               )}

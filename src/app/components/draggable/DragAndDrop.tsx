@@ -4,6 +4,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { DropableContainer, ContainerType } from './DropableContainer';
 import { DragabbleEntityType } from './DraggableEntity';
 import { generateUniqueId } from 'utilities';
+import { isEmpty } from 'utilities/validation';
 
 export interface DragAndDropProps {
   entities: DragabbleEntityType[];
@@ -13,6 +14,7 @@ export interface DragAndDropProps {
   hasBorder?: boolean;
   setContainers: (containers: ContainerType[]) => void;
   setEntities: (entities: DragabbleEntityType[]) => void;
+  onRemoveEntity: (entityId: string, containerId: string) => void;
 }
 
 export const DragAndDrop: React.FC<DragAndDropProps> = ({
@@ -23,6 +25,7 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
   hasBorder,
   setContainers,
   setEntities,
+  onRemoveEntity,
 }) => {
   const [editEntityId, setEditingEntityId] = useState<string>();
   const handleDragInOneContainer = useCallback(
@@ -127,11 +130,29 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
     setEntities(newEntities);
   };
 
-  const handleEditContentDone = (entityId: string, content: string) => {
-    const newEntities = entities.map(entitiy => entitiy.id === entityId ? { ...entitiy, content } : entitiy);
+  const handleEditContentDone = (containerId: string, entityId: string, content: string) => {
+    if (!isEmpty(content)) {
+      const newEntities = entities.map(entitiy => entitiy.id === entityId ? { ...entitiy, content } : entitiy);
+  
+      setEditingEntityId(undefined);
+      setEntities(newEntities);
+    } else {
+      const newContainers = containers.map(container => {
+        if (container.id === containerId) {
+          return {
+            ...container,
+            entityIds: container.entityIds.filter(id => id !== entityId),
+          };
+        }
 
-    setEditingEntityId(undefined);
-    setEntities(newEntities);
+        return container;
+      });
+      const newEntities = entities.filter(entitiy => entitiy.id !== entityId);
+  
+      setEditingEntityId(undefined);
+      setEntities(newEntities);
+      setContainers(newContainers);
+    }
   };
 
   const handleRemoveContainer = useCallback((containerId: string) => {
@@ -161,7 +182,7 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
               id={id}
               hasBorder={hasBorder}
               onAddButtonClick={handleAddButtonClick}
-              onEditContentDone={handleEditContentDone}
+              onEditContentDone={(entityId, content) => handleEditContentDone(id, entityId, content)}
               setEditingEntityId={id => setEditingEntityId(id)}
               onRemove={() => handleRemoveContainer(id)}
             />

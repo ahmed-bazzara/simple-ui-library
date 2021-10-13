@@ -100,6 +100,8 @@ export const DraggableEntity: React.FC<DraggableEntityProps> = ({
                     overflowWrap: 'break-word',
                     fontWeight: 600,
                     color: COLOR.secondary,
+                    border: `thin solid ${COLOR.neutralGrey28}`,
+                    borderRadius: rem(4),
                   })}
                   name="content"
                 />
@@ -108,6 +110,7 @@ export const DraggableEntity: React.FC<DraggableEntityProps> = ({
                   className={css`overflow:visible;`}
                   isDisabled={isSubmitting}
                   size="SMALL"
+                  theme="secondary"
                   type="submit"
                 >
                   <Icon icon="CHECKMARK" size="SMALL" />
