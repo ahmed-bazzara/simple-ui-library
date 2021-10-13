@@ -7,12 +7,14 @@ import { DragabbleEntityType, DraggableEntity } from '.';
 import { Button, Header, Icon } from 'app/components';
 import { css } from '@emotion/css';
 
-export interface DragabbleContainerType {
+export interface ContainerType {
   id: string;
   title?: string;
-  entities: DragabbleEntityType[];
+  entityIds: string[]
 }
-export interface DropableContainerProps extends DragabbleContainerType {
+
+export interface DropableContainerProps extends Pick<ContainerType, 'id' | 'title'> {
+  containerEntities: DragabbleEntityType[];
   entitiesDirection: 'vertical' | 'horizontal';
   containersDirection: 'vertical' | 'horizontal';
   hasBorder?: boolean;
@@ -29,6 +31,8 @@ Pick<DropableContainerProps, 'containersDirection'> & { hasBorder?: boolean }
   label: 'DropableContainer',
   display: 'flex',
   border: hasBorder ? `${rem(1)} solid ${COLOR.neutralGrey28}` : 'unset',
+  backgroundColor: COLOR.neutralGrey10,
+  borderRadius: rem(4),
   width: '100%',
   alignItems: 'center',
 
@@ -70,7 +74,7 @@ Pick<DropableContainerProps, 'entitiesDirection'> & {
 }));
 
 export const DropableContainer: React.FC<DropableContainerProps> = ({
-  entities,
+  containerEntities,
   id,
   title = '',
   entitiesDirection,
@@ -117,7 +121,7 @@ export const DropableContainer: React.FC<DropableContainerProps> = ({
                 </Button>
               )}
             </HeaderContainer>
-            {entities?.map(
+            {containerEntities?.map(
               (entity, index) =>
                 entity && (
                   <DraggableEntity

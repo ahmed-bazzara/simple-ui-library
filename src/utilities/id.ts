@@ -1,7 +1,5 @@
-let idCounter = 0;
+import { v4 as uuidv4 } from 'uuid';
 
-export const generateId = (): number => {
-  idCounter += 1;
-
-  return idCounter;
+export const generateUniqueId = (): string => {
+  return uuidv4();
 };

@@ -1,18 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
+  DragabbleEntityType,
   DragAndDrop,
-  DragAndDropContainer,
-  DragAndDropData,
-  Header,
+  ContainerType,
 } from 'app/components';
-import { loremIpsum } from 'lorem-ipsum';
 import { DragAndDropProps } from '../DragAndDrop';
+import { generateUniqueId } from 'utilities';
 
 export default {
   title: 'Drag and Drop',
   component: DragAndDrop,
   args: {
-    data: Array.from(Array(6)).map((_, index) => `Option ${index + 1}`),
+    entities: Array.from(Array(6)).map((_, index) => `Option ${index + 1}`),
     containers: Array.from(Array(1)).map(
       (_, index) => `Container ${index + 1}`,
     ),
@@ -21,7 +20,7 @@ export default {
     hasBorder: false,
   },
   argTypes: {
-    data: {
+    entities: {
       control: {
         type: 'array',
       },
@@ -58,8 +57,8 @@ export default {
   },
 };
 
-type Args = Omit<DragAndDropProps, 'data' | 'containers'> & {
-  data: string[];
+type Args = Omit<DragAndDropProps, 'entities' | 'containers'> & {
+  entities: string[];
   containers: string[];
 };
 
@@ -68,47 +67,24 @@ const Template: {
   args?: Args;
 } = (args: Args): JSX.Element => {
   const {
-    data: userInsertedData,
+    entities: userInsertedEntities,
     containers: userInsertedContainers,
     containersDirection,
     entitiesDirection,
     hasBorder,
-    canAddEntities,
   } = args;
-  const [data, setData] = useState<DragAndDropData>({});
-  const [containers, setDraggableContainers] = useState<DragAndDropContainer>(
-    {},
-  );
-
-  const mockTitle = useCallback(
-    () =>
-      loremIpsum({
-        units: 'sentences',
-        count: 1,
-        sentenceUpperBound: 8,
-      }),
+  const [entities, setEntities] = useState<DragabbleEntityType[]>([]);
+  const [containers, setDraggableContainers] = useState<ContainerType[]>(
     [],
   );
 
   useEffect(() => {
-    const data = userInsertedData?.reduce((acc, content, index) => {
-      acc[content] = {
-        id: content,
-        content: mockTitle(),
-        // content: (
-        //   <Header color="secondary" variant="H5">
-        //     {mockTitle()}
-        //   </Header>
-        // ),
-      };
-
-      return acc;
-    }, {} as DragAndDropData);
-    setData(data);
-  }, [mockTitle, userInsertedData]);
+    const entities = userInsertedEntities.map(content => ({ id: generateUniqueId(), content }));
+    setEntities(entities);
+  }, [userInsertedEntities]);
 
   useEffect(() => {
-    const entityIds = Object.keys(data);
+    const entityIds = entities.map(({ id }) => id);
     const enititiesPortinPerContainer = Math.round(
       entityIds.length / userInsertedContainers.length,
     );
@@ -117,37 +93,23 @@ const Template: {
     while (entityIds.length > 0)
       entitiesArr.push(entityIds.splice(0, enititiesPortinPerContainer));
 
-    const containers = userInsertedContainers.reduce((acc, id, index) => {
-      acc[id] = {
-        id,
-        entityIds: entitiesArr[index],
-        title: id,
-      };
-
-      return acc;
-    }, {} as DragAndDropContainer);
+    const containers = userInsertedContainers.map((containerTitle, index) => ({
+      id: generateUniqueId(),
+      entityIds: entitiesArr[index] || [],
+      title: containerTitle,
+    }));
     setDraggableContainers(containers);
-  }, [data, userInsertedContainers]);
-
-  const handleMove = useCallback((containers: DragAndDropContainer) => {
-    setDraggableContainers(containers);
-  }, []);
-  
-  const saveData = useCallback((data: DragAndDropData) => {
-    setData(data);
-  }, []);
+  }, [entities, userInsertedContainers]);
 
   return (
     <DragAndDrop
       containers={containers}
-      canAddEntities={canAddEntities}
       containersDirection={containersDirection}
-      data={data}
+      entities={entities}
       entitiesDirection={entitiesDirection}
       hasBorder={hasBorder}
-      onRemove={() => {}}
-      setContainers={handleMove}
-      setData={saveData}
+      setContainers={containers => setDraggableContainers(containers)}
+      setEntities={entities => setEntities(entities)}
     />
   );
 };
