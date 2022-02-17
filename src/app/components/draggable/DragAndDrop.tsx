@@ -1,27 +1,27 @@
-import React, { useCallback, useState } from 'react';
-import styled from '@emotion/styled';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { DropableContainer, ContainerType } from './DropableContainer';
-import { DragabbleEntityType } from './DraggableEntity';
-import { generateUniqueId } from 'utilities';
-import { isEmpty } from 'utilities/validation';
+import React, { useCallback, useState } from "react";
+import styled from "@emotion/styled";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { DroppableContainer, ContainerType } from "./DroppableContainer";
+import { DraggableEntityType } from "./DraggableEntity";
+import { generateUniqueId } from "utilities";
+import { isEmpty } from "utilities/validation";
 
 export interface DragAndDropProps {
-  entities: DragabbleEntityType[];
+  entities: DraggableEntityType[];
   containers: ContainerType[];
-  containersDirection?: 'vertical' | 'horizontal';
-  entitiesDirection?: 'vertical' | 'horizontal';
+  containersDirection?: "vertical" | "horizontal";
+  entitiesDirection?: "vertical" | "horizontal";
   hasBorder?: boolean;
   setContainers: (containers: ContainerType[]) => void;
-  setEntities: (entities: DragabbleEntityType[]) => void;
+  setEntities: (entities: DraggableEntityType[]) => void;
   onRemoveEntity: (entityId: string, containerId: string) => void;
 }
 
 export const DragAndDrop: React.FC<DragAndDropProps> = ({
   containers,
   entities,
-  containersDirection = 'vertical',
-  entitiesDirection = 'horizontal',
+  containersDirection = "vertical",
+  entitiesDirection = "horizontal",
   hasBorder,
   setContainers,
   setEntities,
@@ -32,7 +32,7 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
     (result: DropResult, container: ContainerType) => {
       const { destination, source, draggableId } = result;
       if (!destination) return;
-      
+
       const newEntityIds = Array.from(container?.entityIds);
       const [reorderedItem] = newEntityIds.splice(source.index, 1);
       newEntityIds.splice(destination.index, 0, reorderedItem);
@@ -50,14 +50,14 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
 
       setContainers(newContainers);
     },
-    [containers, setContainers],
+    [containers, setContainers]
   );
 
-  const handleDragInMutipleContainers = useCallback(
+  const handleDragInMultipleContainers = useCallback(
     (
       result: DropResult,
       startContainer: ContainerType,
-      finishContainer: ContainerType,
+      finishContainer: ContainerType
     ) => {
       const { destination, source, draggableId } = result;
       if (!destination) return;
@@ -89,7 +89,7 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
 
       setContainers(newContainers);
     },
-    [containers, setContainers],
+    [containers, setContainers]
   );
 
   const handleDragEnd = useCallback(
@@ -102,38 +102,49 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
       if (!destination) return;
       if (isInSamePlace) return;
 
-      const startContainer = containers.find(({ id }) => id === source.droppableId);
-      const finishContainer = containers.find(({ id }) => id === destination.droppableId);
+      const startContainer = containers.find(
+        ({ id }) => id === source.droppableId
+      );
+      const finishContainer = containers.find(
+        ({ id }) => id === destination.droppableId
+      );
       if (!startContainer) return;
       if (!finishContainer) return;
 
       if (startContainer === finishContainer) {
         handleDragInOneContainer(result, startContainer);
       } else {
-        handleDragInMutipleContainers(result, startContainer, finishContainer);
+        handleDragInMultipleContainers(result, startContainer, finishContainer);
       }
     },
-    [containers, handleDragInMutipleContainers, handleDragInOneContainer],
+    [containers, handleDragInMultipleContainers, handleDragInOneContainer]
   );
 
   const handleAddButtonClick = (containerId: string) => {
     const newEntityId = generateUniqueId();
     const newContainers = containers.map(container =>
       container.id === containerId
-        ? ({ ...container, entityIds: [...container.entityIds, newEntityId] })
-        : container);
+        ? { ...container, entityIds: [...container.entityIds, newEntityId] }
+        : container
+    );
 
-    const newEntities = [...entities, { id: newEntityId, content: '' }];
+    const newEntities = [...entities, { id: newEntityId, content: "" }];
 
     setEditingEntityId(newEntityId);
     setContainers(newContainers);
     setEntities(newEntities);
   };
 
-  const handleEditContentDone = (containerId: string, entityId: string, content: string) => {
+  const handleEditContentDone = (
+    containerId: string,
+    entityId: string,
+    content: string
+  ) => {
     if (!isEmpty(content)) {
-      const newEntities = entities.map(entitiy => entitiy.id === entityId ? { ...entitiy, content } : entitiy);
-  
+      const newEntities = entities.map(entity =>
+        entity.id === entityId ? { ...entity, content } : entity
+      );
+
       setEditingEntityId(undefined);
       setEntities(newEntities);
     } else {
@@ -147,42 +158,53 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
 
         return container;
       });
-      const newEntities = entities.filter(entitiy => entitiy.id !== entityId);
-  
+      const newEntities = entities.filter(entity => entity.id !== entityId);
+
       setEditingEntityId(undefined);
       setEntities(newEntities);
       setContainers(newContainers);
     }
   };
 
-  const handleRemoveContainer = useCallback((containerId: string) => {
-    const containerEntityIds = containers.find(({ id }) => containerId === id)?.entityIds;
-    const newContainers = containers.filter(({ id }) => containerId !== id );
-    const newEntities = entities.filter(({ id }) => !containerEntityIds?.includes(id));
+  const handleRemoveContainer = useCallback(
+    (containerId: string) => {
+      const containerEntityIds = containers.find(
+        ({ id }) => containerId === id
+      )?.entityIds;
+      const newContainers = containers.filter(({ id }) => containerId !== id);
+      const newEntities = entities.filter(
+        ({ id }) => !containerEntityIds?.includes(id)
+      );
 
-    setContainers(newContainers);
-    setEntities(newEntities);
-  }, [containers, entities, setContainers, setEntities]);
+      setContainers(newContainers);
+      setEntities(newEntities);
+    },
+    [containers, entities, setContainers, setEntities]
+  );
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <StyledDragAndDrop containersDirection={containersDirection}>
-        {containers?.map((container) => {
+        {containers?.map(container => {
           const { id, entityIds, title } = container;
-          const enititiesData = entities.filter(({ id }) => entityIds.includes(id));
+          const entitiesData = entities.filter(({ id }) =>
+            entityIds.includes(id)
+          );
 
           return (
-            <DropableContainer
+            <DroppableContainer
               key={id}
               containersDirection={containersDirection}
-              containerEntities={enititiesData}
+              containerEntities={entitiesData}
               entitiesDirection={entitiesDirection}
               editEntityId={editEntityId}
               title={title}
               id={id}
               hasBorder={hasBorder}
               onAddButtonClick={handleAddButtonClick}
-              onEditContentDone={(entityId, content) => handleEditContentDone(id, entityId, content)}
+              onEditContentDone={(entityId, content) =>
+                handleEditContentDone(id, entityId, content)
+              }
               setEditingEntityId={id => setEditingEntityId(id)}
               onRemove={() => handleRemoveContainer(id)}
             />
@@ -194,8 +216,8 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
 };
 
 const StyledDragAndDrop = styled.div<
-Pick<DragAndDropProps, 'containersDirection'>
+  Pick<DragAndDropProps, "containersDirection">
 >(({ containersDirection }) => ({
-  display: 'flex',
-  flexDirection: containersDirection === 'vertical' ? 'column' : 'row',
+  display: "flex",
+  flexDirection: containersDirection === "vertical" ? "column" : "row",
 }));
