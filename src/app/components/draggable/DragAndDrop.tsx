@@ -34,8 +34,8 @@ export const DragAndDrop: React.FC<DragAndDropProps> = ({
       if (!destination) return;
       
       const newEntityIds = Array.from(container?.entityIds);
-      newEntityIds.splice(source.index, 1);
-      newEntityIds.splice(destination.index, 0, draggableId);
+      const [reorderedItem] = newEntityIds.splice(source.index, 1);
+      newEntityIds.splice(destination.index, 0, reorderedItem);
 
       const newContainers = containers.map(prevContainer => {
         if (prevContainer.id === container.id) {
