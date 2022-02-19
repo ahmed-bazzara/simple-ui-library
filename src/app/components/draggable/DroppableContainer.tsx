@@ -10,7 +10,7 @@ import { css } from "@emotion/css";
 export interface ContainerType {
   id: string;
   title?: string;
-  entityIds: string[];
+  entities: DraggableEntityType[];
 }
 
 export interface DroppableContainerProps
