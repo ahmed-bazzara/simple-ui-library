@@ -6,7 +6,7 @@ export const getNumberOfDecimals = (value: number | string): number => {
 
 export const roundToNearestThreshold = (
   value: number,
-  nearestThreshold: number = 50,
+  nearestThreshold = 50
 ) => {
   return Math.ceil(value / nearestThreshold) * nearestThreshold;
 };
