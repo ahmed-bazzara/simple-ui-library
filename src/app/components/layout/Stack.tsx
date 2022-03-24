@@ -1,5 +1,5 @@
 import { css, cx } from "@emotion/css";
-import { CSSProperties, ReactNode } from "react";
+import { CSSProperties } from "react";
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -16,7 +16,6 @@ interface Props
       | "flexWrap"
     > {
   styles?: CSSProperties;
-  children?: ReactNode;
   hoverStyles?: CSSProperties;
 }
 
