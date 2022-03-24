@@ -39,13 +39,13 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
-    "format": "prettier --write src/**/*.{ts,tsx,js,jsx,scss,css,json}",
+    "lint": "eslint --fix",
+    "format": "prettier . --write",
     "clean": "rm -rf ./dist",
     "prebuild": "yarn clean",
-    "build": "tsc build",
-    "publishpackage": "yarn run webpack && npm publish"
+    "build": "webpack-cli",
+    "publishpackage": "npm publish"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
