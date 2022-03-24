@@ -1,4 +1,5 @@
 import { css, cx } from "@emotion/css";
+import { CSSObject } from "@emotion/react";
 import { CSSProperties } from "react";
 
 interface Props
@@ -15,7 +16,7 @@ interface Props
       | "flexGrow"
       | "flexWrap"
     > {
-  styles?: CSSProperties;
+  styles?: CSSObject;
   hoverStyles?: CSSProperties;
 }
 
